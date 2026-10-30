@@ -1,774 +1,2916 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+  TYPE ARENA — Complete Typing Practice, Arcade Games, Challenges, Stretch Studio & Social Leaderboard
+  Copyright (c) 2026 MD ISTIAK ISLAM
+  Ideas Deployed by MD ISTIAK ISLAM
+  Licensed under the MIT License (see /LICENSE)
+-->
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TYPE ARENA - Multiplayer Typing Competitions</title>
+    <title>TYPE ARENA - Complete Typing Practice, Games, Challenges &amp; Stretch Studio</title>
+    <meta name="description" content="Complete light-themed typing studio featuring minute-wise typing practice (1, 2, 3, 5, 10, 15 minutes), difficulty tiers, typing games, challenges, and ergonomic stretch strategies. Ideas Deployed by MD ISTIAK ISLAM.">
+    <meta name="author" content="MD ISTIAK ISLAM">
+    <meta name="copyright" content="Copyright © 2026 MD ISTIAK ISLAM. Ideas Deployed by MD ISTIAK ISLAM.">
+    <meta property="og:title" content="TYPE ARENA - Complete Typing Practice, Games, Challenges &amp; Stretch Studio">
+    <meta property="og:description" content="Complete light-themed typing studio featuring minute-wise typing practice (1, 2, 3, 5, 10, 15 minutes), difficulty tiers, typing games, challenges, and ergonomic stretch strategies. Ideas Deployed by MD ISTIAK ISLAM.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-canvas: #f3f6fc;
+            --bg-glass: rgba(255, 255, 255, 0.74);
+            --bg-glass-strong: rgba(255, 255, 255, 0.88);
+            --bg-glass-subtle: rgba(248, 250, 252, 0.68);
+            --bg-well: rgba(241, 245, 249, 0.82);
+            --border-glass: rgba(255, 255, 255, 0.95);
+            --border-hairline: rgba(15, 23, 42, 0.09);
+            --border-focus: rgba(37, 99, 235, 0.45);
+            --shadow-glass: 0 14px 36px -10px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+            --shadow-hover: 0 20px 42px -12px rgba(37, 99, 235, 0.13), 0 4px 10px -2px rgba(15, 23, 42, 0.05);
+            --text-ink: #0f172a;
+            --text-slate: #334155;
+            --text-muted: #64748b;
+            --accent-primary: #2563eb;
+            --accent-primary-hover: #1d4ed8;
+            --accent-primary-soft: rgba(37, 99, 235, 0.10);
+            --accent-amber: #d97706;
+            --accent-amber-soft: rgba(217, 119, 6, 0.12);
+            --semantic-emerald: #059669;
+            --semantic-emerald-soft: rgba(5, 150, 105, 0.12);
+            --semantic-rose: #e11d48;
+            --semantic-rose-soft: rgba(225, 29, 72, 0.12);
+            --ease-decelerate: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html.dark {
+            --bg-canvas: #0b1120;
+            --bg-glass: rgba(19, 28, 49, 0.78);
+            --bg-glass-strong: rgba(27, 38, 64, 0.90);
+            --bg-glass-subtle: rgba(15, 23, 42, 0.70);
+            --bg-well: rgba(8, 13, 25, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-hairline: rgba(148, 163, 184, 0.18);
+            --border-focus: rgba(56, 189, 248, 0.5);
+            --shadow-glass: 0 14px 36px -10px rgba(0, 0, 0, 0.35);
+            --shadow-hover: 0 20px 42px -12px rgba(56, 189, 248, 0.18);
+            --text-ink: #f8fafc;
+            --text-slate: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-primary-hover: #0ea5e9;
+            --accent-primary-soft: rgba(56, 189, 248, 0.14);
+            --accent-amber: #f59e0b;
+            --accent-amber-soft: rgba(245, 158, 11, 0.15);
+            --semantic-emerald: #10b981;
+            --semantic-emerald-soft: rgba(16, 185, 129, 0.15);
+            --semantic-rose: #f43f5e;
+            --semantic-rose-soft: rgba(244, 63, 94, 0.16);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-            color: #ffffff;
-            position: relative;
             min-height: 100vh;
+            background-color: var(--bg-canvas);
+            background-image:
+                radial-gradient(at 12% 10%, rgba(56, 189, 248, 0.14) 0px, transparent 48%),
+                radial-gradient(at 88% 14%, rgba(245, 158, 11, 0.11) 0px, transparent 45%),
+                radial-gradient(at 50% 85%, rgba(37, 99, 235, 0.08) 0px, transparent 55%);
+            color: var(--text-ink);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.55;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .tabular-nums {
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-numeric: tabular-nums;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+        button, input, textarea {
+            font-family: inherit;
         }
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        button:focus-visible, input:focus-visible, a:focus-visible {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        /* Open Glassy Surface System */
+        .glass-panel {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-hairline);
+            box-shadow: var(--shadow-glass), inset 0 1px 0 var(--border-glass);
+            border-radius: 1.15rem;
+            transition: transform 0.48s var(--ease-decelerate), box-shadow 0.48s var(--ease-decelerate), border-color 0.38s var(--ease-decelerate);
         }
 
-        .container {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background: transparent;
+        .glass-well {
+            background: var(--bg-well);
+            border: 1px solid var(--border-hairline);
+            border-radius: 0.85rem;
         }
 
-        header {
-            backdrop-filter: blur(12px);
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(6, 182, 212, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            display: none;
-        }
-
-        header.active {
-            display: block;
-        }
-
-        .header-content {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .header-back-btn {
-            padding: 0.5rem;
-            background: transparent;
-            border: none;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .header-back-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 0.5rem;
-        }
-
-        .header-title {
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: none;
-        }
-
-        @media (min-width: 640px) {
-            .header-title {
-                display: block;
-            }
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            font-size: 0.875rem;
-        }
-
-        .player-code-display {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 0.75rem;
-            background: rgba(6, 182, 212, 0.2);
-            border: 1px solid rgba(6, 182, 212, 0.5);
-            border-radius: 0.5rem;
-        }
-
-        .player-info {
-            text-align: right;
-        }
-
-        .player-name {
-            color: #06b6d4;
-            font-weight: bold;
-        }
-
-        .player-status {
-            color: #9ca3af;
-            font-size: 0.75rem;
-        }
-
-        main {
-            flex: 1;
-            display: flex;
+        /* Dynamic Slow-Down Interactive Buttons & Icons */
+        .btn-dynamic {
+            min-height: 44px;
+            padding: 0.65rem 1.25rem;
+            border-radius: 0.75rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem;
-        }
-
-        .screen {
-            display: none;
-            width: 100%;
-            max-width: 1280px;
-            margin: 0 auto;
-            animation: slideIn 0.4s ease-out;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        .home-title {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .home-title h1 {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            letter-spacing: -0.05em;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        @media (min-width: 640px) {
-            .home-title h1 {
-                font-size: 3.5rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .home-title h1 {
-                font-size: 4rem;
-            }
-        }
-
-        .home-subtitle {
-            font-size: 1.25rem;
-            color: #d1d5db;
-            margin-bottom: 0.5rem;
-        }
-
-        .home-divider {
-            width: 128px;
-            height: 4px;
-            background: linear-gradient(90deg, #06b6d4, #a855f7);
-            margin: 0 auto;
-            border-radius: 9999px;
-        }
-
-        .home-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        @media (min-width: 768px) {
-            .home-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .game-card {
-            position: relative;
-            overflow: hidden;
-            backdrop-filter: blur(12px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border: 2px solid rgba(6, 182, 212, 0.3);
-            border-radius: 1.5rem;
-            padding: 2rem;
+            gap: 0.55rem;
             cursor: pointer;
-            transition: all 0.3s;
-            transform: scale(1);
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition:
+                transform 0.5s var(--ease-decelerate),
+                background-color 0.4s var(--ease-decelerate),
+                border-color 0.4s var(--ease-decelerate),
+                box-shadow 0.5s var(--ease-decelerate),
+                color 0.35s var(--ease-decelerate);
         }
 
-        .game-card:hover {
-            border-color: rgba(6, 182, 212, 0.7);
-            transform: scale(1.05);
+        .btn-dynamic svg {
+            transition: transform 0.55s var(--ease-decelerate);
+            flex-shrink: 0;
         }
 
-        .game-card.games {
-            border-color: rgba(168, 85, 247, 0.3);
+        .btn-dynamic:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
         }
 
-        .game-card.games:hover {
-            border-color: rgba(168, 85, 247, 0.7);
+        .btn-dynamic:hover svg {
+            transform: scale(1.12) rotate(-4deg);
         }
 
-        .game-card-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            display: block;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .game-card h2 {
-            font-size: 1.875rem;
-            font-weight: 900;
-            margin-bottom: 0.75rem;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .game-card.games h2 {
-            background: linear-gradient(90deg, #a855f7, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .game-card-desc {
-            color: #d1d5db;
-            margin-bottom: 1rem;
-        }
-
-        .game-card-list {
-            font-size: 0.875rem;
-            color: #9ca3af;
-            text-align: left;
-        }
-
-        .game-card-list li {
-            list-style: none;
-            margin: 0.5rem 0;
-        }
-
-        .setup-content {
-            width: 100%;
-            max-width: 512px;
-            margin: 0 auto;
-        }
-
-        .setup-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .setup-header h1 {
-            font-size: 2rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-        }
-
-        .setup-header p {
-            color: #d1d5db;
-        }
-
-        .setup-form {
-            backdrop-filter: blur(12px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border: 1px solid rgba(6, 182, 212, 0.3);
-            border-radius: 0.875rem;
-            padding: 2rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: bold;
-            color: #06b6d4;
-            margin-bottom: 0.75rem;
-            letter-spacing: 0.1em;
-        }
-
-        .form-input {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(6, 182, 212, 0.5);
-            color: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Courier New', monospace;
-            font-size: 1.125rem;
-            transition: all 0.3s;
-            outline: none;
-        }
-
-        .form-input:focus {
-            border-color: #06b6d4;
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
-        }
-
-        .form-input::placeholder {
-            color: #6b7280;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            font-weight: bold;
-            font-size: 1rem;
-            border-radius: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .btn-dynamic:active {
+            transform: translateY(0px) scale(0.98);
         }
 
         .btn-primary {
-            width: 100%;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
-            color: #0f172a;
-            font-weight: 900;
+            background: var(--accent-primary);
+            color: #ffffff;
+            border: 1px solid transparent;
         }
 
-        .btn-primary:hover:not(:disabled) {
-            box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
-            transform: scale(1.05);
+        html.dark .btn-primary {
+            color: #0b1120;
         }
 
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .btn-primary:hover {
+            background: var(--accent-primary-hover);
         }
 
-        .lobby-content {
-            width: 100%;
+        .btn-glass {
+            background: var(--bg-glass-strong);
+            color: var(--text-ink);
+            border: 1px solid var(--border-hairline);
         }
 
-        .lobby-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
+        .btn-glass:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
         }
 
-        @media (min-width: 1024px) {
-            .lobby-grid {
-                grid-template-columns: 300px 1fr;
+        /* Page Container */
+        .page-shell {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 1rem 1rem 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .page-shell {
+                padding: 1.35rem 2rem 3.5rem;
+                gap: 1.75rem;
             }
         }
 
-        .lobby-section {
-            space: 1.5rem;
-        }
-
-        .section-title {
-            font-size: 1.125rem;
-            font-weight: 900;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-        }
-
-        .section-title.cyan { color: #06b6d4; }
-        .section-title.purple { color: #a855f7; }
-        .section-title.blue { color: #3b82f6; }
-        .section-title.lime { color: #84cc16; }
-
-        .player-card {
-            backdrop-filter: blur(12px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border: 1px solid rgba(6, 182, 212, 0.2);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            transition: all 0.3s;
-            margin-bottom: 0.75rem;
-        }
-
-        .player-card:hover {
-            border-color: rgba(6, 182, 212, 0.5);
-        }
-
-        .player-card-name {
-            font-weight: bold;
-            color: white;
-            font-size: 0.875rem;
-        }
-
-        .player-card-code {
-            font-size: 0.75rem;
-            color: #9ca3af;
-            font-family: 'Courier New', monospace;
-            margin-top: 0.25rem;
-        }
-
-        .status-badge {
-            font-size: 0.75rem;
-            font-weight: bold;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
-            background: rgba(34, 197, 94, 0.3);
-            color: #22c55e;
-            display: inline-block;
-            margin-top: 0.5rem;
-        }
-
-        .invite-section {
-            backdrop-filter: blur(12px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 0.875rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .invite-section .section-title {
-            color: #3b82f6;
-        }
-
-        .code-display {
-            font-size: 0.875rem;
-            color: #9ca3af;
-            margin-bottom: 1rem;
-        }
-
-        .code-value {
-            font-weight: 900;
-            color: #06b6d4;
-            font-size: 1.125rem;
-            font-family: 'Courier New', monospace;
-        }
-
-        .input-group {
+        /* 3-Zone Top Navigation Bar Contract */
+        .top-nav-bar {
             display: flex;
-            gap: 0.5rem;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            padding: 0.85rem 1.35rem;
         }
 
-        .input-group input {
-            flex: 1;
+        .brand-wordmark {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: var(--text-ink);
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .setting-btn {
-            padding: 0.75rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 0.5rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .setting-btn:hover {
-            border-color: #06b6d4;
-        }
-
-        .setting-btn.active {
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
-            color: #0f172a;
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
-            transform: scale(1.05);
-        }
-
-        .game-content {
-            width: 100%;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-card {
-            backdrop-filter: blur(12px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: #9ca3af;
-            font-weight: bold;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: #06b6d4;
-        }
-
-        .stat-value.warning {
-            color: #ef4444;
-            animation: shake 0.3s;
-        }
-
-        .stat-value.blue { color: #3b82f6; }
-        .stat-value.green { color: #22c55e; }
-        .stat-value.purple { color: #a855f7; }
-
-        .text-display {
-            backdrop-filter: blur(12px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border: 2px solid rgba(6, 182, 212, 0.5);
-            border-radius: 0.875rem;
-            padding: 1.5rem;
-            min-height: 128px;
-            margin-bottom: 1.5rem;
-            line-height: 1.75;
-            font-size: 1rem;
-            color: #9ca3af;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        .char-correct {
-            color: #22c55e;
-        }
-
-        .char-wrong {
-            color: #ef4444;
-        }
-
-        .game-display {
-            backdrop-filter: blur(12px);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-            border: 2px solid rgba(6, 182, 212, 0.5);
-            border-radius: 0.875rem;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+        .nav-links {
             display: none;
+            align-items: center;
+            gap: 1.75rem;
         }
 
-        .game-display.active {
-            display: block;
+        @media (min-width: 860px) {
+            .nav-links {
+                display: flex;
+            }
         }
 
-        .race-bar {
-            position: relative;
-            height: 80px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 0.5rem;
-            overflow: hidden;
+        .nav-link {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-slate);
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+            padding: 0.25rem 0;
+            border-bottom: 2px solid transparent;
+            transition: color 0.35s var(--ease-decelerate), border-color 0.35s var(--ease-decelerate);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        /* Hero & Open Timing/Difficulty Glass Ribbon */
+        .hero-banner {
+            padding: 1.75rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        @media (min-width: 980px) {
+            .hero-banner {
+                grid-template-columns: 1.15fr 0.85fr;
+                padding: 2.15rem;
+            }
+        }
+
+        .hero-kicker {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            margin-bottom: 0.45rem;
+        }
+
+        .hero-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(1.9rem, 3.4vw, 2.85rem);
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -0.025em;
+            text-wrap: balance;
+            color: var(--text-ink);
+            margin-bottom: 0.65rem;
+        }
+
+        .hero-prose {
+            font-size: 0.98rem;
+            color: var(--text-slate);
+            max-width: 62ch;
+        }
+
+        /* Open Glass Timing & Difficulty Matrix */
+        .config-glass-matrix {
+            padding: 1.35rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+
+        .matrix-label-row {
             display: flex;
             align-items: center;
-            padding: 0 1rem;
+            justify-content: space-between;
+            gap: 0.5rem;
+            margin-bottom: 0.45rem;
         }
 
-        .race-car {
-            font-size: 2rem;
-            margin-right: 1rem;
+        .matrix-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-slate);
         }
 
-        .race-progress-bar {
-            flex: 1;
-            height: 12px;
-            background: #374151;
-            border-radius: 9999px;
-            overflow: hidden;
-            margin-right: 1rem;
+        .matrix-readout {
+            font-size: 0.78rem;
+            color: var(--accent-primary);
+            font-weight: 700;
         }
 
-        .race-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        .race-percentage {
-            font-weight: 900;
-            color: #06b6d4;
-            font-size: 1.125rem;
-        }
-
-        .ball-display {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .ball-container {
-            position: relative;
-            width: 160px;
-            height: 160px;
-            margin: 0 auto 1.5rem;
-        }
-
-        .ball {
-            position: absolute;
-            inset: 0;
-            border-radius: 9999px;
-            border: 8px solid #22c55e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3.5rem;
-        }
-
-        .ball.medium {
-            border-color: #eab308;
-        }
-
-        .ball.low {
-            border-color: #ef4444;
-        }
-
-        .ball-hp {
-            position: absolute;
-            bottom: -48px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-weight: 900;
-            font-size: 1.125rem;
-            color: #22c55e;
-        }
-
-        .ball-hp.medium { color: #eab308; }
-        .ball-hp.low { color: #ef4444; }
-
-        .enemies-grid {
+        .minute-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.75rem;
-            margin-bottom: 1rem;
+            gap: 0.45rem;
         }
 
-        @media (min-width: 640px) {
-            .enemies-grid {
+        @media (min-width: 520px) {
+            .minute-grid {
                 grid-template-columns: repeat(6, 1fr);
             }
         }
 
-        .enemy-card {
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.3) 0%, rgba(236, 72, 153, 0.2) 100%);
-            border: 1px solid rgba(168, 85, 247, 0.5);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            text-align: center;
+        .difficulty-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.45rem;
         }
 
-        .enemy-icon {
-            font-size: 1.875rem;
-            margin-bottom: 0.75rem;
+        @media (min-width: 520px) {
+            .difficulty-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
-        .enemies-remaining {
-            text-align: center;
-            color: #9ca3af;
-            font-size: 0.875rem;
-            margin-top: 1rem;
+        .choice-btn {
+            min-height: 42px;
+            padding: 0.45rem 0.6rem;
+            border-radius: 0.65rem;
+            border: 1px solid var(--border-hairline);
+            background: var(--bg-glass-strong);
+            color: var(--text-slate);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.1rem;
+            white-space: nowrap;
+            transition:
+                transform 0.45s var(--ease-decelerate),
+                background-color 0.35s var(--ease-decelerate),
+                border-color 0.35s var(--ease-decelerate),
+                color 0.35s var(--ease-decelerate),
+                box-shadow 0.45s var(--ease-decelerate);
         }
 
-        .word-input-section {
-            backdrop-filter: blur(12px);
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid rgba(132, 204, 22, 0.5);
-            border-radius: 0.875rem;
+        .choice-btn:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-primary);
+            color: var(--text-ink);
+        }
+
+        .choice-btn.active {
+            background: var(--accent-primary);
+            color: #ffffff;
+            border-color: var(--accent-primary);
+            box-shadow: 0 8px 20px -6px rgba(37, 99, 235, 0.42);
+        }
+
+        html.dark .choice-btn.active {
+            color: #0b1120;
+        }
+
+        .choice-sub {
+            font-size: 0.68rem;
+            opacity: 0.82;
+            font-weight: 500;
+        }
+
+        /* Open Practice Studio & Live Typing Stage */
+        .studio-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.35rem;
+            align-items: start;
+        }
+
+        @media (min-width: 1024px) {
+            .studio-layout {
+                grid-template-columns: 1.6fr 0.9fr;
+            }
+        }
+
+        .typing-deck {
             padding: 1.5rem;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
         }
 
-        .word-label {
-            font-size: 0.875rem;
-            color: #9ca3af;
-            margin-bottom: 0.75rem;
+        /* Category Filter Bar */
+        .category-tabs {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            flex-wrap: wrap;
         }
 
-        .current-word {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #84cc16, #22c55e);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
+        .tab-btn {
+            min-height: 38px;
+            padding: 0.4rem 0.85rem;
+            border-radius: 0.6rem;
+            border: 1px solid var(--border-hairline);
+            background: var(--bg-glass-subtle);
+            color: var(--text-slate);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+            transition: all 0.45s var(--ease-decelerate);
         }
 
-        .word-input {
+        .tab-btn:hover {
+            transform: translateY(-1px);
+            border-color: var(--accent-primary);
+            color: var(--text-ink);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-primary-soft);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        /* 5-Metric Glass Telemetry Strip */
+        .metrics-strip {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.65rem;
+        }
+
+        @media (min-width: 640px) {
+            .metrics-strip {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        .metric-card {
+            padding: 0.8rem 0.95rem;
+            background: var(--bg-glass-strong);
+            border: 1px solid var(--border-hairline);
+            border-radius: 0.85rem;
+        }
+
+        .metric-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .metric-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-variant-numeric: tabular-nums;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--text-ink);
+            margin-top: 0.1rem;
+        }
+
+        .metric-val.primary { color: var(--accent-primary); }
+        .metric-val.emerald { color: var(--semantic-emerald); }
+        .metric-val.amber { color: var(--accent-amber); }
+        .metric-val.rose { color: var(--semantic-rose); }
+
+        /* Passage Display Well */
+        .passage-well {
+            padding: 1.35rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(1rem, 1.45vw, 1.18rem);
+            line-height: 1.85;
+            color: var(--text-muted);
+            min-height: 132px;
+            user-select: none;
+            word-break: break-word;
+            transition: border-color 0.35s var(--ease-decelerate);
+        }
+
+        .char-correct {
+            color: var(--semantic-emerald);
+            font-weight: 600;
+        }
+
+        .char-wrong {
+            color: var(--semantic-rose);
+            background: var(--semantic-rose-soft);
+            text-decoration: underline;
+            border-radius: 3px;
+        }
+
+        .char-current {
+            color: var(--text-ink);
+            background: var(--accent-primary-soft);
+            border-bottom: 2px solid var(--accent-primary);
+            font-weight: 700;
+        }
+
+        .typing-input-field {
             width: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(132, 204, 22, 0.5);
-            color: white;
+            min-height: 50px;
+            padding: 0.75rem 1rem;
+            border-radius: 0.75rem;
+            border: 1.5px solid var(--border-hairline);
+            background: var(--bg-glass-strong);
+            color: var(--text-ink);
+            font-size: 1rem;
+            transition: border-color 0.35s var(--ease-decelerate), box-shadow 0.45s var(--ease-decelerate);
+        }
+
+        .typing-input-field:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px var(--accent-primary-soft);
+        }
+
+        /* Pacing Lanes */
+        .lanes-box {
+            padding: 0.9rem 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .lane-line {
+            display: grid;
+            grid-template-columns: 130px 1fr 52px;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 480px) {
+            .lane-line {
+                grid-template-columns: 95px 1fr 44px;
+            }
+        }
+
+        .lane-bar-bg {
+            height: 10px;
+            background: var(--bg-canvas);
+            border: 1px solid var(--border-hairline);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .lane-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-primary);
+            transition: width 0.45s var(--ease-decelerate);
+        }
+
+        .lane-bar-fill.pacer {
+            background: var(--accent-amber);
+        }
+
+        /* Side Glass Companion: Finger Guide + Rival Roster */
+        .side-companion {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .companion-card {
+            padding: 1.35rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.95rem;
+        }
+
+        .section-heading {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-ink);
+        }
+
+        /* Visual Keyboard Key Guide */
+        .keyboard-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            padding: 0.85rem;
+            align-items: center;
+        }
+
+        .kb-row {
+            display: flex;
+            gap: 0.28rem;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .kb-key {
+            min-width: 24px;
+            height: 28px;
+            padding: 0 0.25rem;
+            border-radius: 0.35rem;
+            border: 1px solid var(--border-hairline);
+            background: var(--bg-glass-strong);
+            color: var(--text-slate);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.35s var(--ease-decelerate), background-color 0.3s var(--ease-decelerate), color 0.3s var(--ease-decelerate);
+        }
+
+        .kb-key.space {
+            min-width: 130px;
+        }
+
+        .kb-key.active-key {
+            background: var(--accent-primary);
+            color: #ffffff;
+            border-color: var(--accent-primary);
+            transform: translateY(-2px) scale(1.08);
+            box-shadow: 0 6px 14px -3px rgba(37, 99, 235, 0.45);
+        }
+
+        html.dark .kb-key.active-key {
+            color: #0b1120;
+        }
+
+        /* Mini-Game Stage Inside Typing Deck */
+        .arcade-stage {
+            display: none;
+            padding: 1.25rem;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .arcade-stage.active {
+            display: flex;
+        }
+
+        .wave-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .unit-glass-card {
+            padding: 0.85rem;
+            border-radius: 0.75rem;
+            background: var(--bg-glass-strong);
+            border: 1px solid var(--border-hairline);
+            transition: transform 0.4s var(--ease-decelerate), border-color 0.4s var(--ease-decelerate);
+        }
+
+        .unit-glass-card.locked {
+            border-color: var(--accent-primary);
+            box-shadow: 0 6px 18px -6px rgba(37, 99, 235, 0.28);
+        }
+
+        /* Open Sections Grid: Games, Challenges, Stretch & Strategies */
+        .open-section-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.85rem;
+        }
+
+        .cards-grid-4 {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .cards-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .cards-grid-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .feature-glass-card {
+            padding: 1.35rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .feature-glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--border-focus);
+        }
+
+        .feature-glass-card.active-card {
+            border-color: var(--accent-primary);
+            background: var(--bg-glass-strong);
+        }
+
+        .icon-orb {
+            width: 42px;
+            height: 42px;
+            border-radius: 0.75rem;
+            background: var(--accent-primary-soft);
+            color: var(--accent-primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.55s var(--ease-decelerate), background-color 0.4s var(--ease-decelerate);
+        }
+
+        .feature-glass-card:hover .icon-orb {
+            transform: scale(1.1) rotate(-6deg);
+        }
+
+        /* Stretch & Ergonomics Split Studio */
+        .stretch-studio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.35rem;
+        }
+
+        @media (min-width: 960px) {
+            .stretch-studio-grid {
+                grid-template-columns: 1.1fr 0.9fr;
+            }
+        }
+
+        .stretch-player-card {
+            padding: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1.25rem;
+        }
+
+        .stretch-step-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .stretch-step-item {
+            padding: 0.7rem 0.9rem;
+            border-radius: 0.65rem;
+            background: var(--bg-glass-strong);
+            border: 1px solid var(--border-hairline);
+            font-size: 0.88rem;
+            color: var(--text-slate);
+        }
+
+        .strategy-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.85rem;
+        }
+
+        .strategy-item {
+            padding: 1.15rem 1.3rem;
+        }
+
+        /* Confetti Canvas & Precision Celebration Banner */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 250;
+        }
+
+        .celebration-banner {
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            margin-bottom: 1.1rem;
+            border-radius: 0.85rem;
+            background: var(--semantic-emerald-soft);
+            border: 1px solid var(--semantic-emerald);
+            color: var(--semantic-emerald);
+            font-size: 0.84rem;
+            font-weight: 700;
+        }
+
+        .celebration-banner.active {
+            display: flex;
+        }
+
+        /* Social Leaderboard Section */
+        .leaderboard-shell {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.15rem;
+        }
+
+        .leaderboard-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .leaderboard-row {
+            display: grid;
+            grid-template-columns: 44px 1.4fr 1fr auto;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.85rem 1.05rem;
+            border-radius: 0.85rem;
+            background: var(--bg-glass-strong);
+            border: 1px solid var(--border-hairline);
+            transition: transform 0.45s var(--ease-decelerate), border-color 0.35s var(--ease-decelerate), box-shadow 0.45s var(--ease-decelerate);
+        }
+
+        .leaderboard-row:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-focus);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .leaderboard-row.self-row {
+            border-color: var(--accent-primary);
+            background: var(--accent-primary-soft);
+        }
+
+        @media (max-width: 720px) {
+            .leaderboard-row {
+                grid-template-columns: 38px 1fr auto;
+            }
+            .leaderboard-meta-col {
+                display: none;
+            }
+        }
+
+        .rank-medallion {
+            width: 34px;
+            height: 34px;
+            border-radius: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 0.84rem;
+            background: var(--bg-glass-subtle);
+            border: 1px solid var(--border-hairline);
+            color: var(--text-slate);
+        }
+
+        .rank-medallion.rank-1 {
+            background: rgba(217, 119, 6, 0.16);
+            border-color: var(--accent-amber);
+            color: var(--accent-amber);
+        }
+
+        .rank-medallion.rank-2 {
+            background: var(--accent-primary-soft);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .rank-medallion.rank-3 {
+            background: var(--semantic-emerald-soft);
+            border-color: var(--semantic-emerald);
+            color: var(--semantic-emerald);
+        }
+
+        .cheer-btn {
+            min-height: 36px;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.65rem;
+            border: 1px solid var(--border-hairline);
+            background: var(--bg-glass-subtle);
+            color: var(--text-slate);
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: transform 0.45s var(--ease-decelerate), border-color 0.35s var(--ease-decelerate), color 0.35s var(--ease-decelerate), background-color 0.35s var(--ease-decelerate);
+        }
+
+        .cheer-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            background: var(--accent-primary-soft);
+        }
+
+        /* Modal Backdrop for Results & Pause */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.52);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
             padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Courier New', monospace;
-            font-size: 1.125rem;
-            text-align: center;
-            transition: all 0.3s;
-            outline: none;
         }
 
-        .word-input:focus {
-            border-color: #84cc16;
-            box-shadow: 0 0 20px rgba(132, 204, 22, 0.3);
+        .modal-overlay.active {
+            display: flex;
         }
 
-        .results-content {
+        .modal-card {
             width: 100%;
+            max-width: 580px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-hairline);
+            box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.25);
+            border-radius: 1.25rem;
+            padding: 1.85rem;
         }
 
-        .results-header {
-            text-align: center;
-            margin-bottom: 2rem;
+        html.dark .modal-card {
+            background: #0F172A;
+        }
+    </style>
+</head>
+<body data-state="title" data-confetti="idle">
+    <canvas id="confetti-canvas" data-testid="confetti-canvas" aria-hidden="true"></canvas>
+
+    <div class="page-shell">
+        <!-- 3-ZONE TOP BAR CONTRACT -->
+        <header class="top-nav-bar glass-panel">
+            <!-- Zone 1: Single-line Brand Wordmark -->
+            <a href="#practice-studio" id="brand-reset-link" class="brand-wordmark">
+                TYPE ARENA
+            </a>
+
+            <!-- Zone 2: 5 Concise Single-Line Navigation Links -->
+            <nav class="nav-links" aria-label="Primary Workspace Navigation">
+                <a href="#practice-studio" class="nav-link active" data-nav="practice">Practice Studio</a>
+                <a href="#leaderboard-section" class="nav-link" data-nav="leaderboard">Leaderboard</a>
+                <a href="#games-section" class="nav-link" data-nav="games">Typing Games</a>
+                <a href="#challenges-section" class="nav-link" data-nav="challenges">Challenges</a>
+                <a href="#stretch-section" class="nav-link" data-nav="stretch">Stretch &amp; Strategy</a>
+            </nav>
+
+            <!-- Zone 3: 1 Primary Action -->
+            <div style="display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;">
+                <button type="button" id="start-session-btn" class="btn-dynamic btn-primary" data-start="true">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <span>Start Session</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- HERO + OPEN MINUTE-WISE TIMING & DIFFICULTY GLASS MATRIX -->
+        <section class="hero-banner glass-panel" aria-label="Studio Overview and Timing Configuration">
+            <div>
+                <div class="hero-kicker">Complete Typing Practice · Games · Challenges · Stretch Studio</div>
+                <h1 class="hero-title">Master Speed, Precision &amp; Ergonomic Flow</h1>
+                <p class="hero-prose">
+                    Train across editorial prose, keyboard rows, developer code, and financial numerals with minute-wise timers, interactive arcade modes, precision challenges, and guided hand-stretch recovery routines.
+                </p>
+
+                <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.25rem;">
+                    <button type="button" id="hero-focus-input-btn" class="btn-dynamic btn-primary">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"></path>
+                        </svg>
+                        <span>Begin Typing Practice</span>
+                    </button>
+                    <button type="button" id="sound-toggle-btn" class="btn-dynamic btn-glass" aria-label="Toggle Keystroke Audio">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                        <span id="sound-label">Audio: On</span>
+                    </button>
+                    <button type="button" id="theme-toggle-btn" class="btn-dynamic btn-glass" aria-label="Switch Light or Dark Theme">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2"></path>
+                        </svg>
+                        <span id="theme-label">Theme: Light</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Open Glass Matrix for Minute-Wise Timers & Difficulty Labels -->
+            <div class="config-glass-matrix glass-well">
+                <div>
+                    <div class="matrix-label-row">
+                        <span class="matrix-title">MINUTE-WISE TIMING LEVELS</span>
+                        <span id="active-duration-readout" class="matrix-readout tabular-nums">2 Minutes (02:00)</span>
+                    </div>
+                    <div class="minute-grid" id="minute-selector" role="group" aria-label="Minute-Wise Timing Levels">
+                        <button type="button" class="choice-btn" data-minutes="1">
+                            <span class="tabular-nums">1 Min</span>
+                            <span class="choice-sub">Sprint</span>
+                        </button>
+                        <button type="button" class="choice-btn active" data-minutes="2">
+                            <span class="tabular-nums">2 Min</span>
+                            <span class="choice-sub">Standard</span>
+                        </button>
+                        <button type="button" class="choice-btn" data-minutes="3">
+                            <span class="tabular-nums">3 Min</span>
+                            <span class="choice-sub">Rhythm</span>
+                        </button>
+                        <button type="button" class="choice-btn" data-minutes="5">
+                            <span class="tabular-nums">5 Min</span>
+                            <span class="choice-sub">Endurance</span>
+                        </button>
+                        <button type="button" class="choice-btn" data-minutes="10">
+                            <span class="tabular-nums">10 Min</span>
+                            <span class="choice-sub">Deep Flow</span>
+                        </button>
+                        <button type="button" class="choice-btn" data-minutes="15">
+                            <span class="tabular-nums">15 Min</span>
+                            <span class="choice-sub">Marathon</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="matrix-label-row">
+                        <span class="matrix-title">DIFFICULTY LABELS</span>
+                        <span id="active-difficulty-readout" class="matrix-readout">Intermediate · 52 WPM Pacer</span>
+                    </div>
+                    <div class="difficulty-grid" id="difficulty-selector" role="group" aria-label="Difficulty Labels">
+                        <button type="button" class="choice-btn" data-difficulty="beginner">
+                            <span>Beginner</span>
+                            <span class="choice-sub">Easy · 32 WPM</span>
+                        </button>
+                        <button type="button" class="choice-btn active" data-difficulty="intermediate">
+                            <span>Intermediate</span>
+                            <span class="choice-sub">Medium · 52 WPM</span>
+                        </button>
+                        <button type="button" class="choice-btn" data-difficulty="advanced">
+                            <span>Advanced</span>
+                            <span class="choice-sub">Hard · 72 WPM</span>
+                        </button>
+                        <button type="button" class="choice-btn" data-difficulty="master">
+                            <span>Master</span>
+                            <span class="choice-sub">Expert · 92 WPM</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- OPEN WORKSPACE 1: LIVE TYPING PRACTICE & ARENA STUDIO -->
+        <section id="practice-studio" class="studio-layout" aria-label="Interactive Typing Practice Studio">
+            <!-- Left Main Column: Live Typing Deck -->
+            <div class="typing-deck glass-panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
+                    <div class="category-tabs" id="category-tabs" role="group" aria-label="Typing Practice Categories">
+                        <button type="button" class="tab-btn active" data-category="prose">Editorial Prose</button>
+                        <button type="button" class="tab-btn" data-category="rows">Row Drills</button>
+                        <button type="button" class="tab-btn" data-category="code">Code &amp; Syntax</button>
+                        <button type="button" class="tab-btn" data-category="numbers">Numbers &amp; Data</button>
+                        <button type="button" class="tab-btn" data-category="custom">Custom Text</button>
+                    </div>
+
+                    <div style="font-size: 0.8rem; color: var(--text-muted);" class="tabular-nums" id="active-mode-indicator">
+                        Mode: Editorial Prose · Intermediate · 02:00
+                    </div>
+                </div>
+
+                <!-- Optional Custom Text Drawer -->
+                <div id="custom-text-drawer" class="glass-well" style="display: none; padding: 1rem;">
+                    <label for="custom-passage-input" style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.4rem;">
+                        Enter Custom Practice Passage (minimum 20 characters)
+                    </label>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <input
+                            id="custom-passage-input"
+                            class="typing-input-field"
+                            type="text"
+                            placeholder="Paste or type custom text to practice..."
+                            style="flex: 1; min-height: 42px; padding: 0.5rem 0.85rem;"
+                        />
+                        <button type="button" id="apply-custom-btn" class="btn-dynamic btn-primary">
+                            Load Passage
+                        </button>
+                    </div>
+                    <p id="custom-feedback-msg" style="font-size: 0.78rem; margin-top: 0.35rem; display: none;"></p>
+                </div>
+
+                <!-- 5-Metric Glass Telemetry Strip -->
+                <div class="metrics-strip">
+                    <div class="metric-card">
+                        <div class="metric-label">TIMER (MM:SS)</div>
+                        <div id="hud-time" class="metric-val primary">02:00</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">SPEED (WPM)</div>
+                        <div id="hud-wpm" class="metric-val">0</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">ACCURACY</div>
+                        <div id="hud-accuracy" class="metric-val emerald">100%</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">STREAK</div>
+                        <div id="hud-combo" class="metric-val amber">0x</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">SCORE</div>
+                        <div id="hud-score" class="metric-val primary">0</div>
+                    </div>
+                </div>
+
+                <!-- Dual-Lane Pacing Bar -->
+                <div class="lanes-box glass-well" aria-label="Live Pacer Comparison">
+                    <div class="lane-line">
+                        <span style="font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="lane-player-label">ArenaPilot (You)</span>
+                        <div class="lane-bar-bg">
+                            <div id="lane-player-fill" class="lane-bar-fill"></div>
+                        </div>
+                        <span id="lane-player-pct" class="tabular-nums" style="text-align: right; font-weight: 700;">0%</span>
+                    </div>
+                    <div class="lane-line">
+                        <span style="color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" id="lane-pacer-label">Pacer (52 WPM)</span>
+                        <div class="lane-bar-bg">
+                            <div id="lane-pacer-fill" class="lane-bar-fill pacer"></div>
+                        </div>
+                        <span id="lane-pacer-pct" class="tabular-nums" style="text-align: right; color: var(--text-muted);">0%</span>
+                    </div>
+                </div>
+
+                <!-- Challenge Alert Banner (shown when a challenge is active) -->
+                <div id="challenge-banner" class="glass-well" style="display: none; padding: 0.7rem 1rem; border-color: var(--accent-amber); justify-content: space-between; align-items: center; gap: 0.5rem;">
+                    <span id="challenge-banner-text" style="font-size: 0.84rem; font-weight: 600; color: var(--accent-amber);">
+                        Active Challenge: No-Backspace Ironman
+                    </span>
+                    <button type="button" id="exit-challenge-btn" class="tab-btn" style="min-height: 30px; padding: 0.2rem 0.65rem;">
+                        Standard Mode
+                    </button>
+                </div>
+
+                <!-- PASSAGE TYPING VIEW -->
+                <div id="passage-stage-wrapper">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem;">
+                        <span class="metric-label" id="passage-stage-label">ACTIVE PASSAGE — CONTINUOUS MULTI-MINUTE FLOW</span>
+                        <span id="passage-char-counter" class="tabular-nums" style="font-size: 0.78rem; color: var(--text-muted);">0 / 0 chars</span>
+                    </div>
+                    <div id="passage-display" class="passage-well glass-well" aria-live="polite"></div>
+                    <div style="margin-top: 0.85rem;">
+                        <label for="passage-input" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-slate); margin-bottom: 0.35rem;">
+                            Type Passage Here (Timer starts automatically on first keystroke)
+                        </label>
+                        <input
+                            id="passage-input"
+                            class="typing-input-field tabular-nums"
+                            type="text"
+                            placeholder="Start typing the passage above..."
+                            autocomplete="off"
+                            autocapitalize="off"
+                            spellcheck="false"
+                        />
+                    </div>
+                </div>
+
+                <!-- ARCADE MINI-GAME STAGE (Shown when Nitro Race, Core Shield, or Wave Defense is active) -->
+                <div id="arcade-stage-wrapper" class="arcade-stage glass-well">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                        <strong id="arcade-game-title" style="font-size: 0.95rem; color: var(--accent-primary);">Nitro Velocity Race</strong>
+                        <button type="button" id="return-passage-btn" class="tab-btn" style="min-height: 32px;">
+                            Return to Passage Practice
+                        </button>
+                    </div>
+
+                    <!-- Sub-view: Nitro Race -->
+                    <div id="arcade-race-view" style="display: none; padding: 0.9rem; background: var(--bg-glass-strong); border-radius: 0.75rem; border: 1px solid var(--border-hairline);">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.5rem;">
+                            <span>Sprint Track Progress</span>
+                            <span id="race-words-tag" class="tabular-nums" style="font-weight: 700; color: var(--accent-primary);">0 / 12 Words</span>
+                        </div>
+                        <div style="overflow: hidden; padding: 0.5rem 0;">
+                            <div id="race-car-actor" style="display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.45s var(--ease-decelerate);">
+                                <svg width="46" height="22" viewBox="0 0 46 22" fill="none" aria-hidden="true">
+                                    <path d="M4 15L11 6H29L39 11L44 15V18H4V15Z" fill="#2563EB"/>
+                                    <circle cx="13" cy="18" r="4" fill="#0F172A" stroke="#FFFFFF" stroke-width="2"/>
+                                    <circle cx="34" cy="18" r="4" fill="#0F172A" stroke="#FFFFFF" stroke-width="2"/>
+                                </svg>
+                                <span id="race-pct-badge" class="tabular-nums" style="font-size: 0.8rem; font-weight: 700; color: var(--accent-primary);">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-view: Core Shield Defense -->
+                    <div id="arcade-shield-view" style="display: none; text-align: center; padding: 1rem; background: var(--bg-glass-strong); border-radius: 0.75rem; border: 1px solid var(--border-hairline);">
+                        <div style="font-size: 0.8rem; color: var(--text-slate); margin-bottom: 0.5rem;">
+                            Core Shield Containment — Each Word Restores +14% Integrity
+                        </div>
+                        <div style="font-size: 1.75rem; font-weight: 800;" class="tabular-nums" id="shield-hp-readout">
+                            100% · STABLE
+                        </div>
+                        <div class="lane-bar-bg" style="max-width: 380px; margin: 0.65rem auto 0; height: 12px;">
+                            <div id="shield-hp-bar" class="lane-bar-fill" style="width: 100%; background: var(--semantic-emerald);"></div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-view: Sector Wave Defense -->
+                    <div id="arcade-wave-view" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 0.5rem;">
+                            <span>Incoming Hostile Formation</span>
+                            <span id="wave-remaining-tag" class="tabular-nums" style="font-weight: 700; color: var(--semantic-emerald);">6 Units Active</span>
+                        </div>
+                        <div id="wave-units-grid" class="wave-grid"></div>
+                    </div>
+
+                    <!-- Word Strike Box -->
+                    <div style="text-align: center; padding-top: 0.5rem;">
+                        <div class="metric-label">STRIKE TARGET WORD</div>
+                        <div id="arcade-target-word" class="tabular-nums" style="font-size: 2rem; font-weight: 800; color: var(--accent-primary); margin: 0.3rem 0 0.75rem;">
+                            velocity
+                        </div>
+                        <input
+                            id="arcade-word-input"
+                            class="typing-input-field tabular-nums"
+                            type="text"
+                            aria-label="Strike Target Word Input"
+                            placeholder="Type the target word above..."
+                            autocomplete="off"
+                            autocapitalize="off"
+                            spellcheck="false"
+                            style="max-width: 420px; margin: 0 auto; text-align: center;"
+                        />
+                    </div>
+                </div>
+
+                <!-- Action Controls Row -->
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; padding-top: 0.25rem;">
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button type="button" id="restart-session-btn" class="btn-dynamic btn-glass">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                                <path d="M3 3v5h5"></path>
+                            </svg>
+                            <span>Reset Timer &amp; Text</span>
+                        </button>
+                        <button type="button" id="new-passage-btn" class="btn-dynamic btn-glass">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="16 3 21 3 21 8"></polyline>
+                                <line x1="4" y1="20" x2="21" y2="3"></line>
+                            </svg>
+                            <span>Next Passage</span>
+                        </button>
+                        <button type="button" id="pause-session-btn" class="btn-dynamic btn-glass">
+                            <span>Pause [Esc]</span>
+                        </button>
+                    </div>
+
+                    <button type="button" id="finish-session-btn" class="btn-dynamic btn-primary">
+                        <span>Complete &amp; View Report</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Side Open Glass Companion: Live Finger Guide & Competitor Roster -->
+            <aside class="side-companion">
+                <!-- Open Glass Card 1: Interactive Finger-Zone & Key Guide -->
+                <div class="companion-card glass-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 class="section-heading">Live Finger &amp; Key Guide</h2>
+                        <span id="finger-badge" class="tabular-nums" style="font-size: 0.8rem; font-weight: 700; color: var(--accent-primary);">
+                            Thumb (Spacebar)
+                        </span>
+                    </div>
+                    <p style="font-size: 0.82rem; color: var(--text-slate);">
+                        Next target key <strong id="next-key-readout" class="tabular-nums" style="color: var(--accent-primary);">P</strong> is highlighted below to reinforce touch-typing muscle memory.
+                    </p>
+
+                    <div class="keyboard-visual glass-well" id="keyboard-visual" aria-label="Visual Touch Typing Keyboard">
+                        <div class="kb-row">
+                            <span class="kb-key" data-key="Q">Q</span>
+                            <span class="kb-key" data-key="W">W</span>
+                            <span class="kb-key" data-key="E">E</span>
+                            <span class="kb-key" data-key="R">R</span>
+                            <span class="kb-key" data-key="T">T</span>
+                            <span class="kb-key" data-key="Y">Y</span>
+                            <span class="kb-key" data-key="U">U</span>
+                            <span class="kb-key" data-key="I">I</span>
+                            <span class="kb-key" data-key="O">O</span>
+                            <span class="kb-key" data-key="P">P</span>
+                        </div>
+                        <div class="kb-row">
+                            <span class="kb-key" data-key="A">A</span>
+                            <span class="kb-key" data-key="S">S</span>
+                            <span class="kb-key" data-key="D">D</span>
+                            <span class="kb-key" data-key="F">F</span>
+                            <span class="kb-key" data-key="G">G</span>
+                            <span class="kb-key" data-key="H">H</span>
+                            <span class="kb-key" data-key="J">J</span>
+                            <span class="kb-key" data-key="K">K</span>
+                            <span class="kb-key" data-key="L">L</span>
+                            <span class="kb-key" data-key=";">;</span>
+                        </div>
+                        <div class="kb-row">
+                            <span class="kb-key" data-key="Z">Z</span>
+                            <span class="kb-key" data-key="X">X</span>
+                            <span class="kb-key" data-key="C">C</span>
+                            <span class="kb-key" data-key="V">V</span>
+                            <span class="kb-key" data-key="B">B</span>
+                            <span class="kb-key" data-key="N">N</span>
+                            <span class="kb-key" data-key="M">M</span>
+                            <span class="kb-key" data-key=",">,</span>
+                            <span class="kb-key" data-key=".">.</span>
+                        </div>
+                        <div class="kb-row">
+                            <span class="kb-key space" data-key="SPACE">SPACEBAR</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Open Glass Card 2: Callsign, Career Telemetry & Rival Code Connect -->
+                <div class="companion-card glass-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 class="section-heading">Arena Profile &amp; Pacers</h2>
+                        <span id="career-best-readout" class="tabular-nums" style="font-size: 0.8rem; font-weight: 700; color: var(--semantic-emerald);">
+                            Best: 0 WPM
+                        </span>
+                    </div>
+
+                    <div style="display: flex; gap: 0.45rem;">
+                        <input
+                            id="callsign-input"
+                            class="typing-input-field"
+                            type="text"
+                            maxlength="18"
+                            value="ArenaPilot"
+                            aria-label="Player Callsign"
+                            style="min-height: 40px; padding: 0.45rem 0.75rem; font-size: 0.88rem;"
+                        />
+                        <button type="button" id="save-callsign-btn" class="btn-dynamic btn-glass" style="min-height: 40px; padding: 0.45rem 0.9rem;">
+                            Save
+                        </button>
+                    </div>
+
+                    <div style="display: flex; gap: 0.45rem;">
+                        <input
+                            id="rival-code-input"
+                            class="typing-input-field tabular-nums"
+                            type="text"
+                            maxlength="10"
+                            placeholder="Add rival code (e.g. TA-9X4K)"
+                            aria-label="Rival Arena Code"
+                            style="min-height: 40px; padding: 0.45rem 0.75rem; font-size: 0.85rem;"
+                        />
+                        <button type="button" id="add-rival-btn" class="btn-dynamic btn-glass" style="min-height: 40px; padding: 0.45rem 0.9rem;">
+                            Add
+                        </button>
+                    </div>
+
+                    <div id="roster-list" style="display: flex; flex-direction: column; gap: 0.4rem;"></div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- OPEN WORKSPACE 1B: SOCIAL LEADERBOARD & COMMUNITY STANDINGS -->
+        <section id="leaderboard-section" aria-label="Social Leaderboard and Community Standings">
+            <div class="open-section-header">
+                <div>
+                    <div class="hero-kicker">Global &amp; Friends Standings · Live Cheers · 95%+ Precision Club</div>
+                    <h2 class="section-heading" style="font-size: 1.5rem;">Social Leaderboard</h2>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-slate);">
+                    Compare verified WPM, accuracy, and endurance sessions with friends, send cheers, and post your latest studio score.
+                </p>
+            </div>
+
+            <div class="leaderboard-shell glass-panel">
+                <div class="leaderboard-controls">
+                    <div class="category-tabs" id="leaderboard-filter-tabs" role="group" aria-label="Leaderboard Filter">
+                        <button type="button" class="tab-btn active" data-lb-filter="all">Global Top</button>
+                        <button type="button" class="tab-btn" data-lb-filter="friends">Friends &amp; Rivals</button>
+                        <button type="button" class="tab-btn" data-lb-filter="precision">95%+ Precision Club</button>
+                        <button type="button" class="tab-btn" data-lb-filter="endurance">Endurance (5m+)</button>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                        <div class="category-tabs" id="leaderboard-sort-tabs" role="group" aria-label="Sort Leaderboard By">
+                            <button type="button" class="tab-btn active" data-lb-sort="score">Top Score</button>
+                            <button type="button" class="tab-btn" data-lb-sort="wpm">Fastest WPM</button>
+                            <button type="button" class="tab-btn" data-lb-sort="accuracy">Highest Accuracy</button>
+                        </div>
+                        <button type="button" id="post-score-btn" class="btn-dynamic btn-primary" style="min-height: 38px; padding: 0.45rem 0.9rem;">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 19V5M5 12l7-7 7 7"></path>
+                            </svg>
+                            <span>Post My Session Score</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="leaderboard-status-banner" style="display: none; font-size: 0.8rem; font-weight: 600; color: var(--semantic-emerald); padding: 0.5rem 0.85rem; border-radius: 0.65rem; background: var(--semantic-emerald-soft); border: 1px solid var(--semantic-emerald);"></div>
+
+                <div id="social-leaderboard-list" class="leaderboard-list" role="list" aria-label="Social Leaderboard Standings"></div>
+            </div>
+        </section>
+
+        <!-- OPEN WORKSPACE 2: TYPING GAMES BENTO GRID -->
+        <section id="games-section" aria-label="Interactive Typing Games">
+            <div class="open-section-header">
+                <div>
+                    <div class="hero-kicker">Interactive Arcade Modes</div>
+                    <h2 class="section-heading" style="font-size: 1.5rem;">Typing Games Arena</h2>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-slate);">
+                    Click any game card below to launch it immediately in the live arena stage above.
+                </p>
+            </div>
+
+            <div class="cards-grid-4" id="games-grid">
+                <button type="button" class="feature-glass-card glass-panel active-card" data-gamemode="speed">
+                    <div>
+                        <div class="icon-orb" aria-hidden="true">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="section-heading" style="margin-top: 0.85rem; font-size: 1.08rem;">01. Speed Passage Sprint</h3>
+                        <p style="font-size: 0.84rem; color: var(--text-slate); margin-top: 0.35rem;">
+                            Continuous multi-minute paragraph typing against calibrated WPM pacers with live character telemetry.
+                        </p>
+                    </div>
+                    <div class="tabular-nums" style="font-size: 0.76rem; color: var(--accent-primary); font-weight: 700;">
+                        Launch Passage Sprint →
+                    </div>
+                </button>
+
+                <button type="button" class="feature-glass-card glass-panel" data-gamemode="race">
+                    <div>
+                        <div class="icon-orb" aria-hidden="true">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16h2"></path>
+                                <circle cx="6.5" cy="16.5" r="2.5"></circle>
+                                <circle cx="16.5" cy="16.5" r="2.5"></circle>
+                            </svg>
+                        </div>
+                        <h3 class="section-heading" style="margin-top: 0.85rem; font-size: 1.08rem;">02. Nitro Velocity Race</h3>
+                        <p style="font-size: 0.84rem; color: var(--text-slate); margin-top: 0.35rem;">
+                            Accelerate your vehicle down the sprint straightaway with every completed target word and streak boost.
+                        </p>
+                    </div>
+                    <div class="tabular-nums" style="font-size: 0.76rem; color: var(--accent-primary); font-weight: 700;">
+                        Launch Nitro Race →
+                    </div>
+                </button>
+
+                <button type="button" class="feature-glass-card glass-panel" data-gamemode="ball">
+                    <div>
+                        <div class="icon-orb" aria-hidden="true">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="section-heading" style="margin-top: 0.85rem; font-size: 1.08rem;">03. Core Shield Defense</h3>
+                        <p style="font-size: 0.84rem; color: var(--text-slate); margin-top: 0.35rem;">
+                            Containment shield drains continuously—type rapid recharge words to keep integrity at 100% STABLE.
+                        </p>
+                    </div>
+                    <div class="tabular-nums" style="font-size: 0.76rem; color: var(--accent-primary); font-weight: 700;">
+                        Launch Shield Defense →
+                    </div>
+                </button>
+
+                <button type="button" class="feature-glass-card glass-panel" data-gamemode="enemies">
+                    <div>
+                        <div class="icon-orb" aria-hidden="true">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="22" y1="12" x2="18" y2="12"></line>
+                                <line x1="6" y1="12" x2="2" y2="12"></line>
+                                <line x1="12" y1="6" x2="12" y2="2"></line>
+                                <line x1="12" y1="22" x2="12" y2="18"></line>
+                            </svg>
+                        </div>
+                        <h3 class="section-heading" style="margin-top: 0.85rem; font-size: 1.08rem;">04. Sector Wave Defense</h3>
+                        <p style="font-size: 0.84rem; color: var(--text-slate); margin-top: 0.35rem;">
+                            Lock onto Swarmers, Interceptors, and Heavy Cruisers and clear the wave before the timer expires.
+                        </p>
+                    </div>
+                    <div class="tabular-nums" style="font-size: 0.76rem; color: var(--accent-primary); font-weight: 700;">
+                        Launch Wave Defense →
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <!-- OPEN WORKSPACE 3: TYPING CHALLENGES -->
+        <section id="challenges-section" aria-label="Structured Typing Challenges">
+            <div class="open-section-header">
+                <div>
+                    <div class="hero-kicker">Precision &amp; Endurance Trials</div>
+                    <h2 class="section-heading" style="font-size: 1.5rem;">Typing Challenges</h2>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-slate);">
+                    Activate specialized rule constraints to test discipline, zero-backspace accuracy, and rising tempo.
+                </p>
+            </div>
+
+            <div class="cards-grid-4" id="challenges-grid"></div>
+        </section>
+
+        <!-- OPEN WORKSPACE 4: TYPING STRETCH & ERGONOMIC STRATEGIES STUDIO -->
+        <section id="stretch-section" aria-label="Typing Stretch Routines and Speed Strategies">
+            <div class="open-section-header">
+                <div>
+                    <div class="hero-kicker">Biomechanics · Recovery · Speed Technique</div>
+                    <h2 class="section-heading" style="font-size: 1.5rem;">Typing Stretch &amp; Strategy Studio</h2>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-slate);">
+                    Protect wrists, finger tendons, and posture during 5, 10, and 15-minute typing sessions.
+                </p>
+            </div>
+
+            <div class="stretch-studio-grid">
+                <!-- Left Column: Interactive Guided Stretch Routine Timer -->
+                <div class="stretch-player-card glass-panel">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.85rem;">
+                            <div class="category-tabs" id="stretch-tabs" role="group" aria-label="Stretch Routines"></div>
+                            <span id="stretch-timer-badge" class="tabular-nums" style="font-size: 1.35rem; font-weight: 800; color: var(--semantic-emerald);">
+                                00:30
+                            </span>
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="icon-orb" style="width: 52px; height: 52px; background: var(--semantic-emerald-soft); color: var(--semantic-emerald);" aria-hidden="true">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"></path>
+                                    <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"></path>
+                                    <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path>
+                                    <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 id="stretch-title" class="section-heading" style="font-size: 1.15rem;">01. Wrist Flexor &amp; Extensor Release</h3>
+                                <p id="stretch-meta" style="font-size: 0.8rem; color: var(--text-muted);">
+                                    Target: Forearm Flexors &amp; Carpal Tunnel · Recommended: Every 25 minutes of typing
+                                </p>
+                            </div>
+                        </div>
+
+                        <ul id="stretch-steps" class="stretch-step-list"></ul>
+
+                        <!-- Interactive Ergonomic Diagram & Live Stretch Progress Well -->
+                        <div class="glass-well" style="margin-top: 1rem; padding: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem;">
+                                <span style="font-weight: 700; color: var(--text-slate);">BIOMECHANICAL ALIGNMENT GUIDE</span>
+                                <span id="stretch-pct-label" class="tabular-nums" style="font-weight: 700; color: var(--semantic-emerald);">Ready · 100%</span>
+                            </div>
+                            <div class="lane-bar-bg" style="height: 8px;">
+                                <div id="stretch-progress-fill" class="lane-bar-fill" style="width: 100%; background: var(--semantic-emerald);"></div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; padding-top: 0.25rem;">
+                                <div style="background: var(--bg-glass-strong); border: 1px solid var(--border-hairline); border-radius: 0.6rem; padding: 0.65rem; text-align: center;">
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">Wrist Angle</div>
+                                    <div class="tabular-nums" style="font-size: 0.9rem; font-weight: 700; color: var(--semantic-emerald); margin-top: 0.15rem;">0° Neutral</div>
+                                </div>
+                                <div style="background: var(--bg-glass-strong); border: 1px solid var(--border-hairline); border-radius: 0.6rem; padding: 0.65rem; text-align: center;">
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">Elbow Bend</div>
+                                    <div class="tabular-nums" style="font-size: 0.9rem; font-weight: 700; color: var(--accent-primary); margin-top: 0.15rem;">90°–100°</div>
+                                </div>
+                                <div style="background: var(--bg-glass-strong); border: 1px solid var(--border-hairline); border-radius: 0.6rem; padding: 0.65rem; text-align: center;">
+                                    <div style="font-size: 0.72rem; color: var(--text-muted);">Viewing Distance</div>
+                                    <div class="tabular-nums" style="font-size: 0.9rem; font-weight: 700; color: var(--accent-amber); margin-top: 0.15rem;">50–70 cm</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; padding-top: 0.75rem; border-top: 1px solid var(--border-hairline);">
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button type="button" id="stretch-start-btn" class="btn-dynamic btn-primary">
+                                <span id="stretch-start-label">Start Stretch Timer</span>
+                            </button>
+                            <button type="button" id="stretch-reset-btn" class="btn-dynamic btn-glass">
+                                Reset
+                            </button>
+                        </div>
+                        <button type="button" id="stretch-next-btn" class="btn-dynamic btn-glass">
+                            Next Routine →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Column: 4 Core Typing Speed & Biomechanical Strategies -->
+                <div class="strategy-list" id="strategy-list"></div>
+            </div>
+        </section>
+
+        <!-- FOOTER: COPYRIGHT, ATTRIBUTION & SECURITY LAYER -->
+        <footer id="arena-footer" class="glass-panel" style="padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.55rem; align-items: center; text-align: center;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.65rem; flex-wrap: wrap; font-size: 0.9rem; font-weight: 700; color: var(--text-ink);">
+                <span>Copyright &copy; 2026 MD ISTIAK ISLAM</span>
+                <span style="color: var(--accent-primary);">&bull;</span>
+                <span style="color: var(--accent-primary);">Ideas Deployed by MD ISTIAK ISLAM</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 0.55rem; flex-wrap: wrap; font-size: 0.78rem; color: var(--text-slate);">
+                <span style="padding: 0.18rem 0.55rem; border-radius: 0.45rem; background: var(--accent-primary-soft); color: var(--accent-primary); font-weight: 700;">MIT License</span>
+                <span style="padding: 0.18rem 0.55rem; border-radius: 0.45rem; background: var(--semantic-emerald-soft); color: var(--semantic-emerald); font-weight: 700;">Security Protected · CSP &amp; Anti-Cheat Active</span>
+                <span>TYPE ARENA Studio · Minute-Wise Timing (1m, 2m, 3m, 5m, 10m, 15m) · Beginner to Master Tiers</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- RESULTS & TELEMETRY MODAL -->
+    <div id="results-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="results-modal-title">
+        <div class="modal-card">
+            <div class="hero-kicker" id="result-kicker">SESSION TELEMETRY REPORT</div>
+            <h2 id="results-modal-title" class="section-heading" style="font-size: 1.65rem; margin-bottom: 0.35rem;">Session Complete</h2>
+            <p id="result-subtitle" style="font-size: 0.9rem; color: var(--text-slate); margin-bottom: 1rem;">
+                Verified keystroke performance and arena standings.
+            </p>
+
+            <div id="confetti-celebration-banner" class="celebration-banner" role="status" aria-live="polite">
+                <span>ELITE PRECISION UNLOCKED — Over 95% Accuracy Confetti Celebration!</span>
+                <span id="confetti-accuracy-pill" class="tabular-nums">100%</span>
+            </div>
+
+            <div class="metrics-strip" style="margin-bottom: 1.35rem;">
+                <div class="metric-card">
+                    <div class="metric-label">NET WPM</div>
+                    <div id="res-wpm" class="metric-val primary">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">ACCURACY</div>
+                    <div id="res-accuracy" class="metric-val emerald">100%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">PEAK STREAK</div>
+                    <div id="res-streak" class="metric-val amber">0x</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">SCORE</div>
+                    <div id="res-score" class="metric-val primary">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">PROGRESS</div>
+                    <div id="res-progress" class="metric-val">0%</div>
+                </div>
+            </div>
+
+            <div id="res-standings" style="display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1.35rem;"></div>
+
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button type="button" id="modal-play-again-btn" class="btn-dynamic btn-primary" data-start="true">
+                    Practice Again
+                </button>
+                <button type="button" id="modal-close-btn" class="btn-dynamic btn-glass">
+                    Close Report
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAUSE MODAL -->
+    <div id="pause-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pause-modal-title">
+        <div class="modal-card" style="max-width: 440px;">
+            <div class="hero-kicker">SESSION PAUSED</div>
+            <h2 id="pause-modal-title" class="section-heading" style="font-size: 1.5rem; margin-bottom: 0.4rem;">Timer on Hold</h2>
+            <p style="font-size: 0.88rem; color: var(--text-slate); margin-bottom: 1.25rem;">
+                Take a deep breath or perform a quick wrist stretch before resuming your session.
+            </p>
+            <div style="display: flex; gap: 0.65rem; flex-wrap: wrap;">
+                <button type="button" id="resume-btn" class="btn-dynamic btn-primary" style="flex: 1;">
+                    Resume Session
+                </button>
+                <button type="button" id="pause-reset-btn" class="btn-dynamic btn-glass">
+                    Restart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import {
+            DIFFICULTY_LEVELS,
+            PRACTICE_CATEGORIES,
+            CHALLENGES,
+            STRETCH_ROUTINES,
+            TYPING_STRATEGIES,
+            WORD_BANKS,
+            ENEMY_ARCHETYPES,
+            generatePlayerCode,
+            calculateTypingMetrics,
+            evaluateCharacterStates,
+            getBallHealthState,
+            calculateRivalProgress,
+            formatDurationClock,
+            getFingerForChar,
+            shouldTriggerConfetti,
+            INITIAL_SOCIAL_LEADERBOARD,
+            filterAndSortLeaderboard,
+            sanitizeText
+        } from './game-logic.js';
+
+        // Synthesized Web Audio FX
+        let audioCtx = null;
+        const soundState = { enabled: true };
+
+        function playTone(freq = 440, duration = 0.04, type = 'triangle', gainVal = 0.035) {
+            if (!soundState.enabled) return;
+            try {
+                if (!audioCtx) {
+                    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                    if (AudioContextClass) audioCtx = new AudioContextClass();
+                }
+                if (!audioCtx) return;
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch {}
         }
 
-        .results-title {
-            font-size: 3rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #06b6d4, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1rem;
+        function loadCareer() {
+            try {
+                const raw = localStorage.getItem('type_arena_light_career_v1');
+                if (raw) return JSON.parse(raw);
+            } catch {}
+            return { bestWpm: 0, matches: 0 };
         }
 
-        .results-stats {
-            backdrop-filter: blur(12px);
-            background: linear-gradient(13
+        function saveCareer(c) {
+            try {
+                localStorage.setItem('type_arena_light_career_v1', JSON.stringify(c));
+            } catch {}
+        }
+
+        const career = loadCareer();
+
+        const state = {
+            status: 'idle', // 'idle' | 'playing' | 'paused' | 'gameover'
+            gameMode: 'speed', // 'speed' | 'race' | 'ball' | 'enemies'
+            category: 'prose', // 'prose' | 'rows' | 'code' | 'numbers' | 'custom'
+            difficulty: 'intermediate', // 'beginner' | 'intermediate' | 'advanced' | 'master'
+            durationMinutes: 2,
+            durationSeconds: 120,
+            timeLeft: 120,
+            elapsedSeconds: 0,
+            callsign: 'ArenaPilot',
+            playerCode: generatePlayerCode(0.42),
+            customPassage: '',
+            activeChallenge: null,
+            passageIndex: 0,
+            targetPassage: '',
+            completedCharsBank: 0,
+            completedCorrectBank: 0,
+            currentWord: '',
+            wordsCompleted: 0,
+            combo: 0,
+            peakCombo: 0,
+            ballHp: 100,
+            enemies: [],
+            rivalProgress: 0,
+            timerId: null,
+            lastMetrics: { wpm: 0, accuracy: 100, score: 0, progress: 0 },
+            competitors: [
+                { name: 'ArenaPilot', code: 'TA-8K2P', wpm: 0, isSelf: true },
+                { name: 'Vanguard_AI', code: 'TA-7K9P', wpm: 52, isSelf: false },
+                { name: 'TempoBot_AI', code: 'TA-3M5Q', wpm: 38, isSelf: false }
+            ],
+            // Stretch studio state
+            stretchIndex: 0,
+            stretchTimeLeft: STRETCH_ROUTINES[0].durationSeconds,
+            stretchRunning: false,
+            stretchTimerId: null,
+            // Social leaderboard state
+            leaderboardEntries: INITIAL_SOCIAL_LEADERBOARD.map((item) => ({ ...item })),
+            leaderboardFilter: 'all',
+            leaderboardSort: 'score'
+        };
+
+        state.competitors[0].code = state.playerCode;
+
+        // Canvas-Based Confetti Particle System (>95% Accuracy Trigger)
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        const confettiCtx = confettiCanvas.getContext('2d');
+        let confettiParticles = [];
+        let confettiAnimId = null;
+
+        function resizeConfettiCanvas() {
+            confettiCanvas.width = window.innerWidth;
+            confettiCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeConfettiCanvas);
+        resizeConfettiCanvas();
+
+        function stopConfettiCanvas() {
+            if (confettiAnimId) {
+                cancelAnimationFrame(confettiAnimId);
+                confettiAnimId = null;
+            }
+            confettiParticles = [];
+            if (confettiCtx) {
+                confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            }
+            document.body.dataset.confetti = 'idle';
+        }
+
+        function launchConfettiCanvas() {
+            resizeConfettiCanvas();
+            if (confettiAnimId) {
+                cancelAnimationFrame(confettiAnimId);
+                confettiAnimId = null;
+            }
+            document.body.dataset.confetti = 'active';
+            const palette = ['#2563EB', '#059669', '#D97706', '#0EA5E9', '#10B981', '#6366F1', '#F59E0B'];
+            const count = 130;
+            confettiParticles = Array.from({ length: count }, (_, idx) => {
+                const spreadFromCenter = (idx % 2 === 0 ? -1 : 1) * ((idx * 17) % 180);
+                return {
+                    x: confettiCanvas.width * 0.5 + spreadFromCenter,
+                    y: confettiCanvas.height * 0.24 - (idx % 40) * 3,
+                    vx: (Math.random() - 0.5) * 11,
+                    vy: -(Math.random() * 8 + 4),
+                    gravity: 0.18 + Math.random() * 0.08,
+                    size: 6 + (idx % 6),
+                    color: palette[idx % palette.length],
+                    shape: idx % 3 === 0 ? 'circle' : 'rect',
+                    rotation: Math.random() * Math.PI * 2,
+                    vRot: (Math.random() - 0.5) * 0.22,
+                    alpha: 1
+                };
+            });
+
+            const startTime = performance.now();
+            const durationMs = 4200;
+
+            function stepConfetti(now) {
+                const elapsed = now - startTime;
+                confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+
+                let alive = 0;
+                for (const p of confettiParticles) {
+                    p.x += p.vx;
+                    p.vy += p.gravity;
+                    p.y += p.vy;
+                    p.rotation += p.vRot;
+                    if (elapsed > durationMs * 0.65) {
+                        p.alpha = Math.max(0, 1 - (elapsed - durationMs * 0.65) / (durationMs * 0.35));
+                    }
+
+                    if (p.y < confettiCanvas.height + 40 && p.alpha > 0.02) {
+                        alive++;
+                        confettiCtx.save();
+                        confettiCtx.globalAlpha = p.alpha;
+                        confettiCtx.translate(p.x, p.y);
+                        confettiCtx.rotate(p.rotation);
+                        confettiCtx.fillStyle = p.color;
+                        if (p.shape === 'circle') {
+                            confettiCtx.beginPath();
+                            confettiCtx.arc(0, 0, p.size * 0.55, 0, Math.PI * 2);
+                            confettiCtx.fill();
+                        } else {
+                            confettiCtx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.66);
+                        }
+                        confettiCtx.restore();
+                    }
+                }
+
+                if (alive > 0 && elapsed < durationMs) {
+                    confettiAnimId = requestAnimationFrame(stepConfetti);
+                } else {
+                    confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+                    confettiAnimId = null;
+                }
+            }
+
+            confettiAnimId = requestAnimationFrame(stepConfetti);
+        }
+
+        // Social Leaderboard Rendering & API Sync
+        function renderSocialLeaderboard() {
+            const listEl = document.getElementById('social-leaderboard-list');
+            if (!listEl) return;
+
+            const rows = filterAndSortLeaderboard(
+                state.leaderboardEntries,
+                state.leaderboardFilter,
+                state.leaderboardSort
+            );
+
+            if (rows.length === 0) {
+                listEl.innerHTML = `
+                    <div class="glass-well" style="padding: 1.25rem; text-align: center; color: var(--text-slate); font-size: 0.88rem;">
+                        No entries match this filter yet. Complete a session or switch filters to view standings.
+                    </div>
+                `;
+                return;
+            }
+
+            listEl.innerHTML = rows.map((entry, idx) => {
+                const rank = idx + 1;
+                const rankClass = rank <= 3 ? `rank-${rank}` : '';
+                const precisionBadge = entry.accuracy > 95
+                    ? `<span style="font-size: 0.7rem; font-weight: 700; padding: 0.12rem 0.45rem; border-radius: 0.4rem; background: var(--semantic-emerald-soft); color: var(--semantic-emerald);">95%+ Club</span>`
+                    : '';
+                const friendBadge = entry.isSelf
+                    ? `<span style="font-size: 0.7rem; font-weight: 700; padding: 0.12rem 0.45rem; border-radius: 0.4rem; background: var(--accent-primary-soft); color: var(--accent-primary);">YOU</span>`
+                    : entry.isFriend
+                    ? `<span style="font-size: 0.7rem; font-weight: 700; padding: 0.12rem 0.45rem; border-radius: 0.4rem; background: var(--bg-glass-subtle); color: var(--text-slate); border: 1px solid var(--border-hairline);">Friend</span>`
+                    : '';
+
+                return `
+                    <div class="leaderboard-row ${entry.isSelf ? 'self-row' : ''}" role="listitem" data-lb-id="${entry.id}">
+                        <div class="rank-medallion ${rankClass}">#${rank}</div>
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 0.45rem; flex-wrap: wrap;">
+                                <strong style="font-size: 0.95rem; color: var(--text-ink);">${entry.name}</strong>
+                                <span class="tabular-nums" style="font-size: 0.75rem; color: var(--text-muted);">${entry.code}</span>
+                                ${friendBadge}
+                                ${precisionBadge}
+                            </div>
+                            <div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 0.15rem;">
+                                ${entry.mode} · ${entry.difficulty} · <span class="tabular-nums">${entry.durationMinutes}m</span> · ${entry.timestamp || 'Just now'}
+                            </div>
+                        </div>
+                        <div class="leaderboard-meta-col tabular-nums" style="display: flex; align-items: center; gap: 1rem; font-size: 0.86rem;">
+                            <div>
+                                <span style="color: var(--text-muted); font-size: 0.72rem; display: block;">SPEED</span>
+                                <strong style="color: var(--accent-primary);">${entry.wpm} WPM</strong>
+                            </div>
+                            <div>
+                                <span style="color: var(--text-muted); font-size: 0.72rem; display: block;">ACCURACY</span>
+                                <strong style="color: ${entry.accuracy > 95 ? 'var(--semantic-emerald)' : 'var(--text-ink)'};">${entry.accuracy}%</strong>
+                            </div>
+                            <div>
+                                <span style="color: var(--text-muted); font-size: 0.72rem; display: block;">SCORE</span>
+                                <strong>${entry.score} PTS</strong>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; justify-self: end;">
+                            <button type="button" class="cheer-btn" data-cheer-id="${entry.id}" aria-label="Cheer for ${entry.name}">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+                                </svg>
+                                <span class="tabular-nums">${entry.cheers}</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function fetchSocialLeaderboard() {
+            try {
+                const res = await fetch('/api/leaderboard');
+                if (!res.ok) return;
+                const data = await res.json();
+                if (Array.isArray(data.entries) && data.entries.length > 0) {
+                    state.leaderboardEntries = data.entries;
+                    renderSocialLeaderboard();
+                }
+            } catch {}
+        }
+
+        async function postCurrentScoreToLeaderboard(showBanner = true) {
+            const diffObj = DIFFICULTY_LEVELS[state.difficulty] || DIFFICULTY_LEVELS.intermediate;
+            const catName = state.gameMode === 'speed'
+                ? (PRACTICE_CATEGORIES[state.category]?.name || 'Editorial Prose')
+                : `Arcade: ${state.gameMode.toUpperCase()}`;
+
+            const wpm = state.lastMetrics.wpm > 0 ? state.lastMetrics.wpm : Math.max(48, career.bestWpm || 64);
+            const accuracy = state.lastMetrics.accuracy;
+            const score = state.lastMetrics.score > 0 ? state.lastMetrics.score : Math.round(wpm * 18 + accuracy * 3);
+
+            const entryPayload = {
+                id: `lb-self-${state.playerCode}`,
+                name: state.callsign,
+                code: state.playerCode,
+                wpm,
+                accuracy,
+                score,
+                mode: catName,
+                durationMinutes: state.durationMinutes,
+                difficulty: diffObj.label,
+                isFriend: true,
+                isSelf: true
+            };
+
+            const existingIdx = state.leaderboardEntries.findIndex((e) => e.code === state.playerCode || e.isSelf);
+            if (existingIdx >= 0) {
+                state.leaderboardEntries[existingIdx] = {
+                    ...state.leaderboardEntries[existingIdx],
+                    ...entryPayload,
+                    cheers: (state.leaderboardEntries[existingIdx].cheers || 1) + 1,
+                    timestamp: 'Just now'
+                };
+            } else {
+                state.leaderboardEntries.push({
+                    ...entryPayload,
+                    cheers: 5,
+                    timestamp: 'Just now'
+                });
+            }
+            renderSocialLeaderboard();
+
+            if (showBanner) {
+                const banner = document.getElementById('leaderboard-status-banner');
+                if (banner) {
+                    banner.style.display = 'block';
+                    banner.textContent = `Posted ${state.callsign} (${wpm} WPM · ${accuracy}% Accuracy · ${score} PTS) to the Social Leaderboard!`;
+                }
+            }
+
+            try {
+                await fetch('/api/leaderboard', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(entryPayload)
+                });
+            } catch {}
+        }
+
+        function updateStatusAttribute(st) {
+            state.status = st;
+            document.body.dataset.state = st === 'idle' ? 'title' : st;
+        }
+
+        function getActivePassagePool() {
+            if (state.category === 'custom' && state.customPassage.length >= 20) {
+                return [state.customPassage];
+            }
+            const cat = PRACTICE_CATEGORIES[state.category] || PRACTICE_CATEGORIES.prose;
+            return cat.texts[state.difficulty] || cat.texts.intermediate;
+        }
+
+        function updateModeSummaryReadouts() {
+            const diffObj = DIFFICULTY_LEVELS[state.difficulty] || DIFFICULTY_LEVELS.intermediate;
+            const clockStr = formatDurationClock(state.durationSeconds);
+            document.getElementById('active-duration-readout').textContent =
+                `${state.durationMinutes} ${state.durationMinutes === 1 ? 'Minute' : 'Minutes'} (${clockStr})`;
+            document.getElementById('active-difficulty-readout').textContent =
+                `${diffObj.label} · ${diffObj.pacerWpm} WPM Pacer`;
+
+            const catName = state.category === 'custom'
+                ? 'Custom Text'
+                : (PRACTICE_CATEGORIES[state.category]?.name || 'Editorial Prose');
+            const modeLabel = state.gameMode === 'speed' ? catName : `Arcade: ${state.gameMode.toUpperCase()}`;
+            document.getElementById('active-mode-indicator').textContent =
+                `${modeLabel} · ${diffObj.label} · ${clockStr}`;
+
+            state.competitors[1].wpm = diffObj.pacerWpm;
+            document.getElementById('lane-pacer-label').textContent = `Pacer (${diffObj.pacerWpm} WPM)`;
+            document.getElementById('career-best-readout').textContent = `Best: ${career.bestWpm} WPM`;
+            renderRoster();
+        }
+
+        function renderRoster() {
+            const container = document.getElementById('roster-list');
+            container.innerHTML = state.competitors.map((c) => `
+                <div class="glass-well" style="padding: 0.55rem 0.8rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
+                    <div>
+                        <strong>${c.name}</strong>
+                        <span class="tabular-nums" style="color: var(--text-muted); margin-left: 0.35rem;">${c.code}</span>
+                    </div>
+                    <span class="tabular-nums" style="font-weight: 700; color: ${c.isSelf ? 'var(--accent-primary)' : 'var(--semantic-emerald)'};">
+                        ${c.isSelf ? 'YOU' : `${c.wpm} WPM`}
+                    </span>
+                </div>
+            `).join('');
+        }
+
+        function updateFingerHighlight(nextChar) {
+            const info = getFingerForChar(nextChar);
+            document.getElementById('next-key-readout').textContent = info.key;
+            document.getElementById('finger-badge').textContent = info.finger;
+
+            document.querySelectorAll('#keyboard-visual .kb-key').forEach((keyEl) => {
+                keyEl.classList.toggle('active-key', keyEl.dataset.key === info.key);
+            });
+        }
+
+        function renderPassage(typedText) {
+            const display = document.getElementById('passage-display');
+            const states = evaluateCharacterStates(typedText, state.targetPassage);
+            display.innerHTML = states.map((item) => {
+                const safeChar = item.char === '<' ? '&lt;' : item.char === '>' ? '&gt;' : item.char;
+                if (item.status === 'correct') return `<span class="char-correct">${safeChar}</span>`;
+                if (item.status === 'wrong') return `<span class="char-wrong">${safeChar}</span>`;
+                if (item.status === 'current') return `<span class="char-current">${safeChar}</span>`;
+                return `<span>${safeChar}</span>`;
+            }).join('');
+
+            document.getElementById('passage-char-counter').textContent =
+                `${typedText.length} / ${state.targetPassage.length} chars`;
+
+            const nextChar = state.targetPassage[typedText.length] || ' ';
+            updateFingerHighlight(nextChar);
+        }
+
+        function syncHudDisplay() {
+            const timeEl = document.getElementById('hud-time');
+            timeEl.textContent = formatDurationClock(state.timeLeft);
+            timeEl.className = `metric-val ${state.timeLeft <= 15 ? 'rose' : 'primary'}`;
+
+            document.getElementById('hud-wpm').textContent = String(state.lastMetrics.wpm);
+            const accEl = document.getElementById('hud-accuracy');
+            accEl.textContent = `${state.lastMetrics.accuracy}%`;
+            accEl.className = `metric-val ${state.lastMetrics.accuracy >= 95 ? 'emerald' : state.lastMetrics.accuracy >= 85 ? 'amber' : 'rose'}`;
+
+            document.getElementById('hud-combo').textContent = `${state.combo}x`;
+            document.getElementById('hud-score').textContent = String(state.lastMetrics.score);
+
+            document.getElementById('lane-player-label').textContent = `${state.callsign} (You)`;
+            document.getElementById('lane-player-fill').style.width = `${state.lastMetrics.progress}%`;
+            document.getElementById('lane-player-pct').textContent = `${state.lastMetrics.progress}%`;
+
+            document.getElementById('lane-pacer-fill').style.width = `${state.rivalProgress}%`;
+            document.getElementById('lane-pacer-pct').textContent = `${state.rivalProgress}%`;
+        }
+
+        function stopMainTimer() {
+            if (state.timerId) {
+                clearInterval(state.timerId);
+                state.timerId = null;
+            }
+        }
+
+        function ensureTimerRunning() {
+            if (state.timerId) return;
+            updateStatusAttribute('playing');
+            state.timerId = setInterval(() => {
+                if (state.status !== 'playing') return;
+                state.elapsedSeconds += 1;
+                state.timeLeft = Math.max(0, state.durationSeconds - state.elapsedSeconds);
+
+                const diffObj = DIFFICULTY_LEVELS[state.difficulty] || DIFFICULTY_LEVELS.intermediate;
+                let effectivePacerWpm = diffObj.pacerWpm;
+                if (state.activeChallenge?.id === 'escalator') {
+                    effectivePacerWpm += Math.floor(state.elapsedSeconds / 30) * 8;
+                }
+
+                const expectedChars = Math.max(120, state.durationMinutes * 180);
+                state.rivalProgress = calculateRivalProgress(effectivePacerWpm, state.elapsedSeconds, expectedChars);
+
+                if (state.gameMode === 'speed') {
+                    const currentInput = document.getElementById('passage-input').value;
+                    const combinedTyped = 'a'.repeat(state.completedCorrectBank) + currentInput;
+                    const combinedTarget = 'a'.repeat(state.completedCharsBank) + state.targetPassage;
+                    state.lastMetrics = calculateTypingMetrics(
+                        combinedTyped,
+                        combinedTarget,
+                        state.elapsedSeconds,
+                        state.combo
+                    );
+                } else if (state.gameMode === 'ball') {
+                    state.ballHp = Math.max(0, state.ballHp - diffObj.drainRate);
+                    updateShieldStageUi();
+                    if (state.ballHp <= 0) {
+                        completeSession('Core Shield Depleted');
+                        return;
+                    }
+                }
+
+                syncHudDisplay();
+                if (state.timeLeft <= 0) {
+                    completeSession(`${state.durationMinutes}-Minute Timer Completed`);
+                }
+            }, 1000);
+        }
+
+        function buildWaveUnits() {
+            const bank = WORD_BANKS[state.difficulty] || WORD_BANKS.intermediate;
+            state.enemies = Array.from({ length: 6 }, (_, i) => {
+                const arch = ENEMY_ARCHETYPES[i % ENEMY_ARCHETYPES.length];
+                return {
+                    id: i + 1,
+                    type: arch.type,
+                    role: arch.role,
+                    points: arch.points,
+                    word: bank[(i * 3 + state.elapsedSeconds) % bank.length],
+                    defeated: false
+                };
+            });
+        }
+
+        function renderWaveUnits() {
+            const active = state.enemies.filter((e) => !e.defeated);
+            document.getElementById('wave-remaining-tag').textContent = `${active.length} Units Active`;
+            document.getElementById('wave-units-grid').innerHTML = active.map((u, idx) => `
+                <div class="unit-glass-card ${idx === 0 ? 'locked' : ''}">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.78rem;">
+                        <strong>${u.type}</strong>
+                        <span class="tabular-nums" style="color: var(--text-muted);">${u.points} PTS</span>
+                    </div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted);">${u.role}</div>
+                    <div class="tabular-nums" style="font-size: 0.95rem; font-weight: 700; margin-top: 0.25rem; color: ${idx === 0 ? 'var(--accent-primary)' : 'var(--text-ink)'};">
+                        ${u.word}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateShieldStageUi() {
+            const health = getBallHealthState(state.ballHp);
+            const readout = document.getElementById('shield-hp-readout');
+            const bar = document.getElementById('shield-hp-bar');
+            readout.textContent = `${health.hp}% · ${health.label}`;
+            const color =
+                health.level === 'high'
+                    ? 'var(--semantic-emerald)'
+                    : health.level === 'medium'
+                    ? 'var(--accent-amber)'
+                    : 'var(--semantic-rose)';
+            readout.style.color = color;
+            bar.style.width = `${health.hp}%`;
+            bar.style.background = color;
+        }
+
+        function pickNextArcadeWord() {
+            if (state.gameMode === 'enemies') {
+                const firstActive = state.enemies.find((e) => !e.defeated);
+                state.currentWord = firstActive ? firstActive.word : '';
+            } else {
+                const bank = WORD_BANKS[state.difficulty] || WORD_BANKS.intermediate;
+                state.currentWord = bank[(state.wordsCompleted * 5 + state.elapsedSeconds) % bank.length];
+            }
+            document.getElementById('arcade-target-word').textContent = state.currentWord;
+            updateFingerHighlight(state.currentWord[0] || ' ');
+        }
+
+        function resetSession(autoStartTimer = false) {
+            stopMainTimer();
+            updateStatusAttribute(autoStartTimer ? 'playing' : 'idle');
+            document.getElementById('results-modal').classList.remove('active');
+            document.getElementById('pause-modal').classList.remove('active');
+
+            state.durationSeconds = state.durationMinutes * 60;
+            state.timeLeft = state.durationSeconds;
+            state.elapsedSeconds = 0;
+            state.completedCharsBank = 0;
+            state.completedCorrectBank = 0;
+            state.wordsCompleted = 0;
+            state.combo = 0;
+            state.peakCombo = 0;
+            state.ballHp = 100;
+            state.rivalProgress = 0;
+            state.lastMetrics = { wpm: 0, accuracy: 100, score: 0, progress: 0 };
+
+            const isSpeed = state.gameMode === 'speed';
+            document.getElementById('passage-stage-wrapper').style.display = isSpeed ? 'block' : 'none';
+            document.getElementById('arcade-stage-wrapper').classList.toggle('active', !isSpeed);
+
+            document.getElementById('arcade-race-view').style.display = state.gameMode === 'race' ? 'block' : 'none';
+            document.getElementById('arcade-shield-view').style.display = state.gameMode === 'ball' ? 'block' : 'none';
+            document.getElementById('arcade-wave-view').style.display = state.gameMode === 'enemies' ? 'block' : 'none';
+
+            const titles = {
+                race: '02. Nitro Velocity Race',
+                ball: '03. Core Shield Defense',
+                enemies: '04. Sector Wave Defense'
+            };
+            if (!isSpeed) {
+                document.getElementById('arcade-game-title').textContent = titles[state.gameMode] || 'Arcade Arena';
+            }
+
+            if (isSpeed) {
+                const pool = getActivePassagePool();
+                state.targetPassage = pool[state.passageIndex % pool.length];
+                const input = document.getElementById('passage-input');
+                input.value = '';
+                renderPassage('');
+                if (autoStartTimer) {
+                    ensureTimerRunning();
+                    input.focus();
+                }
+            } else {
+                const wordInput = document.getElementById('arcade-word-input');
+                wordInput.value = '';
+                document.getElementById('race-words-tag').textContent = '0 / 12 Words';
+                document.getElementById('race-car-actor').style.transform = 'translateX(0px)';
+                document.getElementById('race-pct-badge').textContent = '0%';
+                if (state.gameMode === 'enemies') {
+                    buildWaveUnits();
+                    renderWaveUnits();
+                }
+                updateShieldStageUi();
+                pickNextArcadeWord();
+                if (autoStartTimer) {
+                    ensureTimerRunning();
+                    wordInput.focus();
+                }
+            }
+
+            updateModeSummaryReadouts();
+            syncHudDisplay();
+        }
+
+        function completeSession(reason = 'Session Complete') {
+            stopMainTimer();
+            updateStatusAttribute('gameover');
+
+            career.matches += 1;
+            if (state.lastMetrics.wpm > career.bestWpm) {
+                career.bestWpm = state.lastMetrics.wpm;
+            }
+            saveCareer(career);
+            updateModeSummaryReadouts();
+
+            const diffObj = DIFFICULTY_LEVELS[state.difficulty] || DIFFICULTY_LEVELS.intermediate;
+            document.getElementById('result-kicker').textContent =
+                `${state.durationMinutes}-MINUTE ${state.gameMode.toUpperCase()} · ${diffObj.label.toUpperCase()}`;
+            document.getElementById('result-subtitle').textContent =
+                `${reason} — Final keystroke telemetry and arena standings.`;
+
+            document.getElementById('res-wpm').textContent = String(state.lastMetrics.wpm);
+            document.getElementById('res-accuracy').textContent = `${state.lastMetrics.accuracy}%`;
+            document.getElementById('res-streak').textContent = `${state.peakCombo}x`;
+            document.getElementById('res-score').textContent = String(state.lastMetrics.score);
+            document.getElementById('res-progress').textContent = `${state.lastMetrics.progress}%`;
+
+            const standings = [
+                {
+                    name: `${state.callsign} (You)`,
+                    wpm: state.lastMetrics.wpm,
+                    accuracy: state.lastMetrics.accuracy,
+                    score: state.lastMetrics.score,
+                    isSelf: true
+                },
+                ...state.competitors.filter((c) => !c.isSelf).map((c, idx) => ({
+                    name: c.name,
+                    wpm: c.wpm,
+                    accuracy: 96 - idx * 2,
+                    score: Math.round(c.wpm * 9.5 + (state.elapsedSeconds * 2)),
+                    isSelf: false
+                }))
+            ].sort((a, b) => b.score - a.score);
+
+            document.getElementById('res-standings').innerHTML = standings.map((s, i) => `
+                <div class="glass-well" style="padding: 0.7rem 0.95rem; display: flex; justify-content: space-between; align-items: center; border-color: ${s.isSelf ? 'var(--accent-primary)' : 'var(--border-hairline)'};">
+                    <div>
+                        <strong class="tabular-nums" style="color: var(--accent-primary); margin-right: 0.4rem;">#${i + 1}</strong>
+                        <strong>${s.name}</strong>
+                    </div>
+                    <div class="tabular-nums" style="font-size: 0.85rem;">
+                        ${s.wpm} WPM · ${s.accuracy}% · <strong style="color: var(--accent-primary);">${s.score} PTS</strong>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('results-modal').classList.add('active');
+
+            // Trigger Canvas Confetti Celebration when session completes with Accuracy > 95%
+            const celebrationBanner = document.getElementById('confetti-celebration-banner');
+            const celebrationPill = document.getElementById('confetti-accuracy-pill');
+            if (shouldTriggerConfetti(state.lastMetrics.accuracy)) {
+                celebrationBanner.classList.add('active');
+                celebrationPill.textContent = `${state.lastMetrics.accuracy}% ACCURACY`;
+                launchConfettiCanvas();
+                playTone(880, 0.14);
+            } else {
+                celebrationBanner.classList.remove('active');
+                stopConfettiCanvas();
+                playTone(720, 0.1);
+            }
+
+            // Automatically sync completed session to Social Leaderboard
+            postCurrentScoreToLeaderboard(false);
+        }
+
+        // Minute-Wise Timing Level Click Handler (1, 2, 3, 5, 10, 15 minutes)
+        document.getElementById('minute-selector').addEventListener('click', (e) => {
+            const btn = e.target.closest('.choice-btn');
+            if (!btn) return;
+            state.durationMinutes = Number(btn.dataset.minutes);
+            document.querySelectorAll('#minute-selector .choice-btn').forEach((b) =>
+                b.classList.toggle('active', b === btn)
+            );
+            playTone(540, 0.04);
+            resetSession(false);
+        });
+
+        // Difficulty Labels Click Handler
+        document.getElementById('difficulty-selector').addEventListener('click', (e) => {
+            const btn = e.target.closest('.choice-btn');
+            if (!btn) return;
+            state.difficulty = btn.dataset.difficulty;
+            document.querySelectorAll('#difficulty-selector .choice-btn').forEach((b) =>
+                b.classList.toggle('active', b === btn)
+            );
+            playTone(580, 0.04);
+            resetSession(false);
+        });
+
+        // Practice Category Tabs
+        document.getElementById('category-tabs').addEventListener('click', (e) => {
+            const btn = e.target.closest('.tab-btn');
+            if (!btn) return;
+            state.category = btn.dataset.category;
+            state.gameMode = 'speed';
+            document.querySelectorAll('#category-tabs .tab-btn').forEach((b) =>
+                b.classList.toggle('active', b === btn)
+            );
+            document.getElementById('custom-text-drawer').style.display =
+                state.category === 'custom' ? 'block' : 'none';
+            resetSession(false);
+        });
+
+        document.getElementById('apply-custom-btn').addEventListener('click', () => {
+            const val = document.getElementById('custom-passage-input').value.trim();
+            const msg = document.getElementById('custom-feedback-msg');
+            if (val.length < 20) {
+                msg.style.display = 'block';
+                msg.style.color = 'var(--semantic-rose)';
+                msg.textContent = 'Please enter at least 20 characters for custom practice.';
+                return;
+            }
+            state.customPassage = val;
+            msg.style.display = 'block';
+            msg.style.color = 'var(--semantic-emerald)';
+            msg.textContent = `Loaded custom passage (${val.length} characters).`;
+            resetSession(false);
+        });
+
+        // Passage Input, Security Anti-Paste Guard & Challenge Enforcement
+        let prevInputLen = 0;
+        const passageInputEl = document.getElementById('passage-input');
+        const arcadeWordInputEl = document.getElementById('arcade-word-input');
+        const passageDisplayEl = document.getElementById('passage-display');
+
+        // Anti-cheat code protection: block paste/drop into live typing inputs & copy/contextmenu on passage well
+        [passageInputEl, arcadeWordInputEl].forEach((inputEl) => {
+            inputEl.addEventListener('paste', (e) => {
+                e.preventDefault();
+                playTone(190, 0.05, 'sawtooth', 0.03);
+            });
+            inputEl.addEventListener('drop', (e) => {
+                e.preventDefault();
+            });
+        });
+
+        passageDisplayEl.addEventListener('copy', (e) => e.preventDefault());
+        passageDisplayEl.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        passageInputEl.addEventListener('keydown', (e) => {
+            if (state.activeChallenge?.lockBackspace && (e.key === 'Backspace' || e.key === 'Delete')) {
+                e.preventDefault();
+                playTone(180, 0.06, 'sawtooth', 0.04);
+            }
+        });
+
+        passageInputEl.addEventListener('input', (e) => {
+            ensureTimerRunning();
+            const typed = e.target.value;
+            const lastIdx = typed.length - 1;
+
+            renderPassage(typed);
+
+            const combinedTyped = 'a'.repeat(state.completedCorrectBank) + typed;
+            const combinedTarget = 'a'.repeat(state.completedCharsBank) + state.targetPassage;
+
+            state.lastMetrics = calculateTypingMetrics(
+                combinedTyped,
+                combinedTarget,
+                Math.max(1, state.elapsedSeconds),
+                state.combo
+            );
+
+            if (typed.length > prevInputLen && lastIdx >= 0) {
+                if (typed[lastIdx] === state.targetPassage[lastIdx]) {
+                    state.combo = state.lastMetrics.currentStreak;
+                    state.peakCombo = Math.max(state.peakCombo, state.combo);
+                    playTone(490 + Math.min(state.combo * 6, 220), 0.03);
+                } else {
+                    state.combo = 0;
+                    playTone(210, 0.05, 'sawtooth', 0.04);
+                }
+            }
+            prevInputLen = typed.length;
+
+            if (state.activeChallenge?.id === 'precision98' && typed.length >= 10 && state.lastMetrics.accuracy < 98) {
+                document.getElementById('challenge-banner-text').textContent =
+                    `Precision Alert: Accuracy (${state.lastMetrics.accuracy}%) dipped below 98% target!`;
+            }
+
+            syncHudDisplay();
+
+            // Multi-minute continuous passage cycling: when paragraph finishes and time remains, load next paragraph seamlessly!
+            if (typed.length >= state.targetPassage.length && state.targetPassage.length > 0) {
+                let paragraphCorrect = 0;
+                for (let i = 0; i < state.targetPassage.length; i++) {
+                    if (typed[i] === state.targetPassage[i]) paragraphCorrect++;
+                }
+                state.completedCharsBank += state.targetPassage.length;
+                state.completedCorrectBank += paragraphCorrect;
+                state.passageIndex += 1;
+
+                const pool = getActivePassagePool();
+                state.targetPassage = pool[state.passageIndex % pool.length];
+                e.target.value = '';
+                prevInputLen = 0;
+                renderPassage('');
+                playTone(680, 0.07);
+            }
+        });
+
+        // Arcade Word Strike Handler
+        document.getElementById('arcade-word-input').addEventListener('input', (e) => {
+            ensureTimerRunning();
+            const val = e.target.value.trim();
+            if (val === state.currentWord && state.currentWord.length > 0) {
+                state.wordsCompleted += 1;
+                state.completedCorrectBank += val.length;
+                state.completedCharsBank += val.length;
+                state.combo += 1;
+                state.peakCombo = Math.max(state.peakCombo, state.combo);
+                e.target.value = '';
+                playTone(640, 0.06);
+
+                const wpm = Math.round(
+                    (state.completedCorrectBank / 5) / (Math.max(1, state.elapsedSeconds) / 60)
+                );
+
+                if (state.gameMode === 'race') {
+                    const progress = Math.min(100, Math.round((state.wordsCompleted / 12) * 100));
+                    state.lastMetrics = {
+                        wpm,
+                        accuracy: 100,
+                        progress,
+                        score: state.wordsCompleted * 145 + wpm * 6
+                    };
+                    document.getElementById('race-words-tag').textContent = `${state.wordsCompleted} / 12 Words`;
+                    document.getElementById('race-car-actor').style.transform = `translateX(${progress * 2.4}px)`;
+                    document.getElementById('race-pct-badge').textContent = `${progress}%`;
+                    if (progress >= 100) {
+                        syncHudDisplay();
+                        completeSession('Nitro Finish Line Crossed');
+                        return;
+                    }
+                } else if (state.gameMode === 'ball') {
+                    state.ballHp = Math.min(100, state.ballHp + 14);
+                    const progress = Math.min(100, state.wordsCompleted * 8);
+                    state.lastMetrics = {
+                        wpm,
+                        accuracy: 100,
+                        progress,
+                        score: state.wordsCompleted * 135 + state.ballHp * 3
+                    };
+                    updateShieldStageUi();
+                } else if (state.gameMode === 'enemies') {
+                    const unit = state.enemies.find((u) => !u.defeated);
+                    if (unit) unit.defeated = true;
+                    const remaining = state.enemies.filter((u) => !u.defeated).length;
+                    if (remaining === 0) {
+                        buildWaveUnits();
+                    }
+                    renderWaveUnits();
+                    const progress = Math.min(100, state.wordsCompleted * 10);
+                    state.lastMetrics = {
+                        wpm,
+                        accuracy: 100,
+                        progress,
+                        score: state.wordsCompleted * 170 + wpm * 5
+                    };
+                }
+
+                pickNextArcadeWord();
+                syncHudDisplay();
+            }
+        });
+
+        // Typing Games Deck Selection
+        document.getElementById('games-grid').addEventListener('click', (e) => {
+            const card = e.target.closest('[data-gamemode]');
+            if (!card) return;
+            state.gameMode = card.dataset.gamemode;
+            document.querySelectorAll('#games-grid .feature-glass-card').forEach((c) =>
+                c.classList.toggle('active-card', c === card)
+            );
+            resetSession(true);
+            document.getElementById('practice-studio').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('return-passage-btn').addEventListener('click', () => {
+            state.gameMode = 'speed';
+            resetSession(false);
+        });
+
+        // Render & Wire Challenges Deck
+        function renderChallengesDeck() {
+            const grid = document.getElementById('challenges-grid');
+            grid.innerHTML = CHALLENGES.map((ch) => `
+                <button type="button" class="feature-glass-card glass-panel" data-challenge="${ch.id}">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;">
+                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--accent-amber);">${ch.badge}</span>
+                            <span class="tabular-nums" style="font-size: 0.75rem; color: var(--text-muted);">${ch.targetWpm} WPM</span>
+                        </div>
+                        <h3 class="section-heading" style="margin-top: 0.6rem; font-size: 1.08rem;">${ch.title}</h3>
+                        <p style="font-size: 0.84rem; color: var(--text-slate); margin-top: 0.35rem;">${ch.desc}</p>
+                    </div>
+                    <div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-primary);">
+                        Start Challenge →
+                    </div>
+                </button>
+            `).join('');
+
+            grid.addEventListener('click', (e) => {
+                const card = e.target.closest('[data-challenge]');
+                if (!card) return;
+                const found = CHALLENGES.find((c) => c.id === card.dataset.challenge);
+                if (!found) return;
+                state.activeChallenge = found;
+                state.gameMode = 'speed';
+                if (found.id === 'gauntlet') {
+                    state.category = 'code';
+                    document.querySelectorAll('#category-tabs .tab-btn').forEach((b) =>
+                        b.classList.toggle('active', b.dataset.category === 'code')
+                    );
+                }
+                const banner = document.getElementById('challenge-banner');
+                banner.style.display = 'flex';
+                document.getElementById('challenge-banner-text').textContent =
+                    `Active Challenge: ${found.title} (${found.badge})`;
+                resetSession(true);
+                document.getElementById('practice-studio').scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        document.getElementById('exit-challenge-btn').addEventListener('click', () => {
+            state.activeChallenge = null;
+            document.getElementById('challenge-banner').style.display = 'none';
+            resetSession(false);
+        });
+
+        // Render & Wire Stretch & Ergonomic Strategies Studio
+        function renderStretchStudio() {
+            const tabsEl = document.getElementById('stretch-tabs');
+            tabsEl.innerHTML = STRETCH_ROUTINES.map((r, idx) => `
+                <button type="button" class="tab-btn ${idx === state.stretchIndex ? 'active' : ''}" data-stretch-idx="${idx}">
+                    Routine 0${idx + 1}
+                </button>
+            `).join('');
+
+            const current = STRETCH_ROUTINES[state.stretchIndex];
+            document.getElementById('stretch-title').textContent = current.title;
+            document.getElementById('stretch-meta').textContent =
+                `Target: ${current.targetArea} · Cadence: ${current.cadence}`;
+            document.getElementById('stretch-timer-badge').textContent =
+                formatDurationClock(state.stretchTimeLeft);
+            const pct = Math.round((state.stretchTimeLeft / current.durationSeconds) * 100);
+            document.getElementById('stretch-progress-fill').style.width = `${pct}%`;
+            document.getElementById('stretch-pct-label').textContent =
+                state.stretchRunning ? `Active · ${pct}%` : `Ready · ${current.durationSeconds}s`;
+
+            document.getElementById('stretch-steps').innerHTML = current.steps.map((step, i) => `
+                <li class="stretch-step-item">
+                    <strong style="color: var(--accent-primary); margin-right: 0.35rem;">Step ${i + 1}:</strong> ${step}
+                </li>
+            `).join('');
+
+            const stratList = document.getElementById('strategy-list');
+            stratList.innerHTML = TYPING_STRATEGIES.map((s) => `
+                <article class="strategy-item glass-panel">
+                    <div style="font-size: 0.74rem; font-weight: 700; color: var(--accent-primary);">${s.category}</div>
+                    <h3 class="section-heading" style="font-size: 1.02rem; margin: 0.15rem 0 0.3rem;">${s.title}</h3>
+                    <p style="font-size: 0.84rem; color: var(--text-ink); font-weight: 600; margin-bottom: 0.2rem;">${s.summary}</p>
+                    <p style="font-size: 0.8rem; color: var(--text-slate);">${s.detail}</p>
+                </article>
+            `).join('');
+        }
+
+        function stopStretchTimer() {
+            if (state.stretchTimerId) {
+                clearInterval(state.stretchTimerId);
+                state.stretchTimerId = null;
+            }
+            state.stretchRunning = false;
+            document.getElementById('stretch-start-label').textContent = 'Start Stretch Timer';
+        }
+
+        document.getElementById('stretch-tabs').addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-stretch-idx]');
+            if (!btn) return;
+            stopStretchTimer();
+            state.stretchIndex = Number(btn.dataset.stretchIdx);
+            state.stretchTimeLeft = STRETCH_ROUTINES[state.stretchIndex].durationSeconds;
+            renderStretchStudio();
+        });
+
+        document.getElementById('stretch-start-btn').addEventListener('click', () => {
+            if (state.stretchRunning) {
+                stopStretchTimer();
+                return;
+            }
+            state.stretchRunning = true;
+            document.getElementById('stretch-start-label').textContent = 'Pause Stretch Timer';
+            playTone(520, 0.05);
+            state.stretchTimerId = setInterval(() => {
+                state.stretchTimeLeft = Math.max(0, state.stretchTimeLeft - 1);
+                const current = STRETCH_ROUTINES[state.stretchIndex];
+                const pct = Math.round((state.stretchTimeLeft / current.durationSeconds) * 100);
+                document.getElementById('stretch-timer-badge').textContent =
+                    formatDurationClock(state.stretchTimeLeft);
+                document.getElementById('stretch-progress-fill').style.width = `${pct}%`;
+                document.getElementById('stretch-pct-label').textContent = `Active · ${pct}%`;
+                if (state.stretchTimeLeft <= 0) {
+                    stopStretchTimer();
+                    document.getElementById('stretch-pct-label').textContent = 'Routine Complete';
+                    playTone(760, 0.12);
+                }
+            }, 1000);
+        });
+
+        document.getElementById('stretch-reset-btn').addEventListener('click', () => {
+            stopStretchTimer();
+            state.stretchTimeLeft = STRETCH_ROUTINES[state.stretchIndex].durationSeconds;
+            document.getElementById('stretch-timer-badge').textContent =
+                formatDurationClock(state.stretchTimeLeft);
+        });
+
+        document.getElementById('stretch-next-btn').addEventListener('click', () => {
+            stopStretchTimer();
+            state.stretchIndex = (state.stretchIndex + 1) % STRETCH_ROUTINES.length;
+            state.stretchTimeLeft = STRETCH_ROUTINES[state.stretchIndex].durationSeconds;
+            renderStretchStudio();
+        });
+
+        // Utility & Profile Controls
+        document.getElementById('sound-toggle-btn').addEventListener('click', () => {
+            soundState.enabled = !soundState.enabled;
+            document.getElementById('sound-label').textContent = `Audio: ${soundState.enabled ? 'On' : 'Off'}`;
+        });
+
+        document.getElementById('theme-toggle-btn').addEventListener('click', () => {
+            const html = document.documentElement;
+            const isDark = html.classList.toggle('dark');
+            html.classList.toggle('light', !isDark);
+            document.getElementById('theme-label').textContent = `Theme: ${isDark ? 'Dark' : 'Light'}`;
+        });
+
+        document.getElementById('save-callsign-btn').addEventListener('click', () => {
+            const val = sanitizeText(document.getElementById('callsign-input').value, 18);
+            if (val.length >= 2) {
+                state.callsign = val;
+                state.competitors[0].name = val;
+                document.getElementById('callsign-input').value = val;
+                syncHudDisplay();
+                renderRoster();
+            }
+        });
+
+        document.getElementById('add-rival-btn').addEventListener('click', () => {
+            const input = document.getElementById('rival-code-input');
+            const raw = sanitizeText(input.value, 10).toUpperCase().replace(/[^A-Z0-9-]/g, '');
+            if (raw.length < 3) return;
+            const code = raw.startsWith('TA-') ? raw : `TA-${raw.slice(0, 4)}`;
+            state.competitors.push({
+                name: `Rival_${code.slice(-3)}`,
+                code,
+                wpm: 48 + (state.competitors.length * 7) % 35,
+                isSelf: false
+            });
+            input.value = '';
+            renderRoster();
+        });
+
+        // Session Controls & Modals
+        document.getElementById('start-session-btn').addEventListener('click', () => resetSession(true));
+        document.getElementById('hero-focus-input-btn').addEventListener('click', () => resetSession(true));
+        document.getElementById('restart-session-btn').addEventListener('click', () => resetSession(false));
+        document.getElementById('new-passage-btn').addEventListener('click', () => {
+            state.passageIndex += 1;
+            resetSession(false);
+        });
+        document.getElementById('finish-session-btn').addEventListener('click', () =>
+            completeSession('Manual Session Snapshot')
+        );
+        document.getElementById('modal-play-again-btn').addEventListener('click', () => resetSession(true));
+        document.getElementById('modal-close-btn').addEventListener('click', () => {
+            document.getElementById('results-modal').classList.remove('active');
+            stopConfettiCanvas();
+            updateStatusAttribute('idle');
+        });
+
+        // Social Leaderboard Filter, Sort, Cheer & Post Listeners
+        document.getElementById('leaderboard-filter-tabs').addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-lb-filter]');
+            if (!btn) return;
+            state.leaderboardFilter = btn.dataset.lbFilter;
+            document.querySelectorAll('#leaderboard-filter-tabs .tab-btn').forEach((b) =>
+                b.classList.toggle('active', b === btn)
+            );
+            playTone(540, 0.04);
+            renderSocialLeaderboard();
+        });
+
+        document.getElementById('leaderboard-sort-tabs').addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-lb-sort]');
+            if (!btn) return;
+            state.leaderboardSort = btn.dataset.lbSort;
+            document.querySelectorAll('#leaderboard-sort-tabs .tab-btn').forEach((b) =>
+                b.classList.toggle('active', b === btn)
+            );
+            playTone(580, 0.04);
+            renderSocialLeaderboard();
+        });
+
+        document.getElementById('social-leaderboard-list').addEventListener('click', async (e) => {
+            const cheerBtn = e.target.closest('[data-cheer-id]');
+            if (!cheerBtn) return;
+            const id = cheerBtn.dataset.cheerId;
+            const entry = state.leaderboardEntries.find((item) => item.id === id);
+            if (!entry) return;
+            entry.cheers = (Number(entry.cheers) || 0) + 1;
+            playTone(660, 0.05);
+            renderSocialLeaderboard();
+            try {
+                await fetch(`/api/leaderboard/${encodeURIComponent(id)}/cheer`, { method: 'POST' });
+            } catch {}
+        });
+
+        document.getElementById('post-score-btn').addEventListener('click', () => {
+            playTone(620, 0.06);
+            postCurrentScoreToLeaderboard(true);
+        });
+
+        function togglePauseModal() {
+            const modal = document.getElementById('pause-modal');
+            if (state.status === 'playing') {
+                updateStatusAttribute('paused');
+                modal.classList.add('active');
+            } else if (state.status === 'paused') {
+                updateStatusAttribute('playing');
+                modal.classList.remove('active');
+                passageInputEl.focus();
+            }
+        }
+
+        document.getElementById('pause-session-btn').addEventListener('click', () => {
+            if (state.status === 'idle') ensureTimerRunning();
+            togglePauseModal();
+        });
+        document.getElementById('resume-btn').addEventListener('click', togglePauseModal);
+        document.getElementById('pause-reset-btn').addEventListener('click', () => resetSession(false));
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && (state.status === 'playing' || state.status === 'paused')) {
+                e.preventDefault();
+                togglePauseModal();
+            }
+        });
+
+        // Initial Boot
+        renderChallengesDeck();
+        renderStretchStudio();
+        renderSocialLeaderboard();
+        fetchSocialLeaderboard();
+        resetSession(false);
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('autostart') === '1') {
+            resetSession(true);
+        }
+    </script>
+</body>
+</html>
